@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link, useParams, useNavigate } from 'react-router-dom';
+
 import './style.css';
 
-const CompanyList = ({ companies, handleCompanySelection }) => {
+const CompanyList = ({ companies }) => {
   return (
     <div>
       <h2>List of Companies</h2>
       {companies.map((company) => (
-        <CompanyCard
-          key={company._id}
-          company={company}
-          handleCompanySelection={handleCompanySelection}
-        />
+        <CompanyCard key={company._id} company={company} />
       ))}
     </div>
   );
 };
 
-const CompanyCard = ({ company, handleCompanySelection }) => {
+const CompanyCard = ({ company }) => {
+  const navigate = useNavigate();
+
   const handleSelectCompany = () => {
-    handleCompanySelection(company);
+    navigate(`/${company.name}`);
   };
 
   return (
@@ -31,24 +31,30 @@ const CompanyCard = ({ company, handleCompanySelection }) => {
   );
 };
 
-const ServiceList = ({ services, handleServiceSelection }) => {
+
+const ServiceList = ({ companies }) => {
+  const { company } = useParams();
+  const selectedCompany = companies.find((c) => c.name === company);
+
+  if (!selectedCompany) {
+    return <div>Company not found.</div>;
+  }
+
   return (
     <div>
       <h2>List of Services</h2>
-      {services.map((service) => (
-        <ServiceCard
-          key={service._id}
-          service={service}
-          handleServiceSelection={handleServiceSelection}
-        />
+      {selectedCompany.services.map((service) => (
+        <ServiceCard key={service._id} service={service} companyName={selectedCompany.name} />
       ))}
     </div>
   );
 };
 
-const ServiceCard = ({ service, handleServiceSelection }) => {
+const ServiceCard = ({ service, companyName }) => {
+  const navigate = useNavigate();
+
   const handleSelectService = () => {
-    handleServiceSelection(service);
+    navigate(`/${companyName}/${service._id}`);
   };
 
   return (
@@ -61,7 +67,9 @@ const ServiceCard = ({ service, handleServiceSelection }) => {
   );
 };
 
-const BookingForm = ({ selectedService, handleBookingSubmission }) => {
+const BookingForm = () => {
+  const { company, serviceId } = useParams();
+
   const [bookingDetails, setBookingDetails] = useState({
     date: '',
     time: '',
@@ -79,13 +87,16 @@ const BookingForm = ({ selectedService, handleBookingSubmission }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleBookingSubmission(selectedService, bookingDetails);
+    console.log('Booking Details:', bookingDetails);
+    // Handle form submission here
+    alert('Form submitted');
   };
 
   return (
     <div>
       <h2>Booking Form</h2>
-      <h3>Selected Service: {selectedService.name}</h3>
+      <h3>Selected Company: {company}</h3>
+      <h3>Selected Service ID: {serviceId}</h3>
       <form onSubmit={handleSubmit}>
         <label>
           Date:
@@ -97,6 +108,7 @@ const BookingForm = ({ selectedService, handleBookingSubmission }) => {
             required
           />
         </label>
+        <br />
         <label>
           Time:
           <input
@@ -107,6 +119,7 @@ const BookingForm = ({ selectedService, handleBookingSubmission }) => {
             required
           />
         </label>
+        <br />
         <label>
           Name:
           <input
@@ -117,6 +130,7 @@ const BookingForm = ({ selectedService, handleBookingSubmission }) => {
             required
           />
         </label>
+        <br />
         <label>
           Email:
           <input
@@ -127,6 +141,7 @@ const BookingForm = ({ selectedService, handleBookingSubmission }) => {
             required
           />
         </label>
+        <br />
         <button type="submit">Submit</button>
       </form>
     </div>
@@ -134,94 +149,67 @@ const BookingForm = ({ selectedService, handleBookingSubmission }) => {
 };
 
 const App = () => {
-  const [selectedCompany, setSelectedCompany] = useState(null);
-  const [selectedService, setSelectedService] = useState(null);
-
-  const handleCompanySelection = (company) => {
-    setSelectedCompany(company);
-    setSelectedService(null);
-  };
-
-  const handleServiceSelection = (service) => {
-    setSelectedService(service);
-  };
-
-  const handleBookingSubmission = (service, bookingDetails) => {
-    // Handle booking submission here
-    console.log('Booking submitted:', service, bookingDetails);
-    alert('Booking submitted.');
-  };
+  const [companies] = useState([
+    // Example data
+    {
+      _id: '1',
+      name: 'Company 1',
+      type: 'Type 1',
+      localisation: 'Location 1',
+      long_description: 'This is company 1',
+      services: [
+        {
+          _id: '1',
+          name: 'Service 1',
+          price: 10,
+          duration: 60,
+          description: 'This is service 1',
+        },
+        {
+          _id: '2',
+          name: 'Service 2',
+          price: 20,
+          duration: 90,
+          description: 'This is service 2',
+        },
+      ],
+    },
+    {
+      _id: '2',
+      name: 'Company 2',
+      type: 'Type 2',
+      localisation: 'Location 2',
+      long_description: 'This is company 2',
+      services: [
+        {
+          _id: '3',
+          name: 'Service 3',
+          price: 15,
+          duration: 45,
+          description: 'This is service 3',
+        },
+        {
+          _id: '4',
+          name: 'Service 4',
+          price: 25,
+          duration: 120,
+          description: 'This is service 4',
+        },
+      ],
+    },
+  ]);
 
   return (
-    <div>
-      <CompanyList
-        companies={companies}
-        handleCompanySelection={handleCompanySelection}
-      />
-      {selectedCompany && !selectedService && (
-        <ServiceList
-          services={selectedCompany.services}
-          handleServiceSelection={handleServiceSelection}
-        />
-      )}
-      {selectedService && (
-        <BookingForm
-          selectedService={selectedService}
-          handleBookingSubmission={handleBookingSubmission}
-        />
-      )}
-    </div>
+    <Router>
+      <div>
+        <Routes>
+          <Route path="/" element={<CompanyList companies={companies} />} />
+          <Route path="/:company" element={<ServiceList companies={companies} />} />
+          <Route path="/:company/:serviceId" element={<BookingForm />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
-
-// Example data
-const companies = [
-  {
-    _id: '1',
-    name: 'Company 1',
-    type: 'Type 1',
-    localisation: 'Location 1',
-    long_description: 'This is company 1',
-    services: [
-      {
-        _id: '1',
-        name: 'Service 1',
-        price: 10,
-        duration: 60,
-        description: 'This is service 1',
-      },
-      {
-        _id: '2',
-        name: 'Service 2',
-        price: 20,
-        duration: 90,
-        description: 'This is service 2',
-      },
-    ],
-  },
-  {
-    _id: '2',
-    name: 'Company 2',
-    type: 'Type 2',
-    localisation: 'Location 2',
-    long_description: 'This is company 2',
-    services: [
-      {
-        _id: '3',
-        name: 'Service 3',
-        price: 15,
-        duration: 45,
-        description: 'This is service 3',
-      },
-      {
-        _id: '4',
-        name: 'Service 4',
-        price: 25,
-        duration: 120,
-        description: 'This is service 4',
-      },
-    ],
-  },
-];
 
 export default App;
