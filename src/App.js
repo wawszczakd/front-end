@@ -18,11 +18,16 @@ const CompanyList = () => {
   }, []);
 
   return (
-    <div>
-      <h2>List of Companies</h2>
-      {companies.map((company) => (
-        <CompanyCard key={company.id} company={company} />
-      ))}
+    <div className="companies-list-layout">
+      <div className="companies-list-top">
+        <h2>List of Companies</h2>
+      </div>
+      
+      <div className="companies-list-bottom">
+        {companies.map((company) => (
+          <CompanyCard key={company.id} company={company} />
+        ))}
+      </div>
     </div>
   );
 };
