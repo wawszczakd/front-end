@@ -2,6 +2,8 @@ body {
 	font-family: Arial, sans-serif;
 	background-color: #f1f1f1;
 	color: #333;
+	margin: 20px;
+	padding: 0;
 }
 
 h2 {
@@ -56,6 +58,17 @@ h2 {
 	margin: 0;
 }
 
+.employee-card {
+	background-color: #fff;
+	border: 1px solid #ddd;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+.employee-card p {
+	margin: 0;
+}
+
 form {
 	background-color: #fff;
 	border: 1px solid #ddd;
@@ -91,4 +104,36 @@ form button[type="submit"] {
 
 form button[type="submit"]:hover {
 	background-color: #0069d9;
+}
+
+.split-layout {
+	display: grid;
+	grid-template-rows: min-content 20px min-content auto;
+	grid-template-columns: calc(30% - 10px) 20px calc(70% - 10px);
+	height: calc(100vh - 40px);
+}
+
+.top-pane {
+	grid-area: 1 / 1 / 2 / 3;
+	overflow: auto;
+}
+
+.left-top-pane {
+	grid-area: 3 / 1 / 4 / 2;
+	overflow: auto;
+}
+
+.left-bottom-pane {
+	grid-area: 4 / 1 / 5 / 2;
+	overflow: auto;
+}
+
+.right-top-pane {
+	grid-area: 3 / 3 / 4 / 4;
+	overflow: auto;
+}
+
+.right-bottom-pane {
+	grid-area: 4 / 3 / 5 / 4;
+	overflow: auto;
 }
