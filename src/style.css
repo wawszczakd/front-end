@@ -154,3 +154,30 @@ form button[type="submit"]:hover {
 	grid-area: 4 / 3 / 5 / 4;
 	overflow: auto;
 }
+
+.login-button,
+.register-button {
+	padding: 10px 20px;
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+	border-radius: 4px;
+	margin-right: 10px;
+	width: 160px;
+}
+
+.login-button:hover,
+.register-button:hover {
+	background-color: #0069d9;
+}
+
+.form-input {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+  

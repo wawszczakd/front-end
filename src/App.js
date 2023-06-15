@@ -3,13 +3,216 @@ import { BrowserRouter as Router, Routes, Route, useParams, useNavigate } from '
 
 import './style.css';
 
-const CompanyListAddress = 'http://0.0.0.0:8080/companies';
+const Address = 'http://0.0.0.0:8080';
+
+const Start = () => {
+  const navigate = useNavigate();
+
+  const handleLoginCustomer = () => {
+    navigate('/login-customer');
+  };
+
+  const handleLoginOwner = () => {
+    navigate('/login-owner');
+  };
+
+  const handleRegisterCustomer = () => {
+    navigate('/register-customer');
+  };
+
+  const handleRegisterOwner = () => {
+    navigate('/register-owner');
+  };
+
+  return (
+    <div>
+      <h2>Welcome to the Booksy Clone App</h2>
+      <h3>Please choose what you would like to do</h3>
+      <button className="login-button" onClick={handleLoginCustomer}>Login Customer</button>
+      <button className="login-button" onClick={handleLoginOwner}>Login Owner</button>
+      <button className="register-button" onClick={handleRegisterCustomer}>Register Customer</button>
+      <button className="register-button" onClick={handleRegisterOwner}>Register Owner</button>
+    </div>
+  );
+};
+
+const LoginCustomer = () => {
+  return <p>Login Customer</p>;
+};
+
+const LoginOwner = () => {
+  return <p>Login Owner</p>;
+};
+
+const RegisterCustomer = () => {
+  const navigate = useNavigate();
+  
+  const [name, setName] = useState('');
+  const [surname, setSurname] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = {
+      name: name,
+      surname: surname,
+      mail: email,
+      pwd: password
+    };
+
+    fetch(`${Address}/customers`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        navigate(`/start`);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+
+  return (
+    <div>
+      <h2>Register Customer</h2>
+      <form onSubmit={handleSubmit}>
+        <label>Name:</label>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          className="form-input"
+        />
+        <br />
+        <label>Surname:</label>
+        <input
+          type="text"
+          value={surname}
+          onChange={(e) => setSurname(e.target.value)}
+          required
+          className="form-input"
+        />
+        <br />
+        <label>Email:</label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          className="form-input"
+        />
+        <br />
+        <label>Password:</label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          className="form-input"
+        />
+        <br />
+        <br />
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  );
+};
+
+const RegisterOwner = () => {
+  const navigate = useNavigate();
+  
+  const [name, setName] = useState('');
+  const [surname, setSurname] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = {
+      name: name,
+      surname: surname,
+      mail: email,
+      pwd: password
+    };
+
+    fetch(`${Address}/owners`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        navigate(`/start`);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+
+  return (
+    <div>
+      <h2>Register Customer</h2>
+      <form onSubmit={handleSubmit}>
+        <label>Name:</label>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          className="form-input"
+        />
+        <br />
+        <label>Surname:</label>
+        <input
+          type="text"
+          value={surname}
+          onChange={(e) => setSurname(e.target.value)}
+          required
+          className="form-input"
+        />
+        <br />
+        <label>Email:</label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          className="form-input"
+        />
+        <br />
+        <label>Password:</label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          className="form-input"
+        />
+        <br />
+        <br />
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  );
+};
 
 const CompanyList = () => {
   const [companies, setCompanies] = useState([]);
 
   useEffect(() => {
-    fetch(CompanyListAddress)
+    fetch(`${Address}/companies`)
       .then(response => response.json())
       .then(data => setCompanies(data))
       .catch(error => {
@@ -54,7 +257,7 @@ const CompanyDetails = () => {
   const [company, setCompany] = useState(null);
 
   useEffect(() => {
-    fetch(`${CompanyListAddress}/${companyId}`)
+    fetch(`${Address}/companies/${companyId}`)
       .then(response => response.json())
       .then(data => setCompany(data))
       .catch(error => {
@@ -229,6 +432,11 @@ const App = () => {
     <Router>
       <div>
         <Routes>
+          <Route path="/start" element={<Start />} />
+          <Route path="/login-customer" element={<LoginCustomer />} />
+          <Route path="/login-owner" element={<LoginOwner />} />
+          <Route path="/register-customer" element={<RegisterCustomer />} />
+          <Route path="/register-owner" element={<RegisterOwner />} />
           <Route path="/companies" element={<CompanyList />} />
           <Route path="/companies/:companyId" element={<CompanyDetails />} />
           <Route path="/companies/:companyId/:serviceId" element={<BookingForm />} />
