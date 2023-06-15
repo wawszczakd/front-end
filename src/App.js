@@ -37,11 +37,123 @@ const Start = () => {
 };
 
 const LoginCustomer = () => {
-  return <p>Login Customer</p>;
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = {
+      mail: email,
+      pwd: password
+    };
+
+    fetch(`${Address}/login/customers`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        navigate('/companies');
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+
+  return (
+    <div>
+      <h2>Login Customer</h2>
+      <form onSubmit={handleSubmit}>
+        <label>Email:</label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          className="form-input"
+        />
+        <br />
+        <label>Password:</label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          className="form-input"
+        />
+        <br />
+        <br />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  );
 };
 
 const LoginOwner = () => {
-  return <p>Login Owner</p>;
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = {
+      mail: email,
+      pwd: password
+    };
+
+    fetch(`${Address}/login/owners`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        navigate('/companies');
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+
+  return (
+    <div>
+      <h2>Login Owner</h2>
+      <form onSubmit={handleSubmit}>
+        <label>Email:</label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          className="form-input"
+        />
+        <br />
+        <label>Password:</label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          className="form-input"
+        />
+        <br />
+        <br />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  );
 };
 
 const RegisterCustomer = () => {
