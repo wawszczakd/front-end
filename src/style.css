@@ -12,7 +12,7 @@ h2 {
 	margin-bottom: 20px;
 }
 
-.company-card {
+.clickable-card {
 	background-color: #fff;
 	border: 1px solid #ddd;
 	padding: 20px;
@@ -22,50 +22,27 @@ h2 {
 	transition: box-shadow 0.3s ease;
 }
 
-.company-card:hover {
+.clickable-card:hover {
 	box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
 }
 
-.company-card h3 {
+.clickable-card h3 {
 	color: #007bff;
 	margin-top: 0;
 }
 
-.company-card p {
+.clickable-card p {
 	margin: 0;
 }
 
-.service-card {
-	background-color: #fff;
-	border: 1px solid #ddd;
-	padding: 20px;
-	margin-bottom: 20px;
-	cursor: pointer;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	transition: box-shadow 0.3s ease;
-}
-
-.service-card:hover {
-	box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
-}
-
-.service-card h3 {
-	color: #007bff;
-	margin-top: 0;
-}
-
-.service-card p {
-	margin: 0;
-}
-
-.employee-card {
+.not-clickable-card {
 	background-color: #fff;
 	border: 1px solid #ddd;
 	padding: 10px;
 	margin-bottom: 10px;
 }
 
-.employee-card p {
+.not-clickable-card p {
 	margin: 0;
 }
 
@@ -86,6 +63,7 @@ form input[type="time"],
 form input[type="text"],
 form input[type="email"],
 form input[type="password"],
+form input[type="number"],
 form textarea {
 	width: 100%;
 	padding: 10px;
@@ -137,7 +115,7 @@ form button[type="submit"]:hover {
 }
 
 .top-pane {
-	grid-area: 1 / 1 / 2 / 3;
+	grid-area: 1 / 1 / 2 / 4;
 	overflow: auto;
 }
 
