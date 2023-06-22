@@ -528,9 +528,91 @@ const OwnerDashboard = () => {
 };
 
 const AddCompany = () => {
+  const navigate = useNavigate();
+
+  const [name, setName] = useState('');
+  const [type, setType] = useState('');
+  const [localisation, setLocalisation] = useState('');
+  const [shortDescription, setShortDescription] = useState('');
+  const [longDescription, setLongDescription] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = {
+      name: name,
+      type: type,
+      localisation: localisation,
+      short_description: shortDescription,
+      long_description: longDescription,
+    };
+
+    fetch(`${Address}/companies`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+      credentials: 'include', // These to lines are supposed to include cookies, but unfortunately it doesn't work
+      withCredentials: true,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        navigate(`/owner-dashboard`);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+
   return (
-    <h2>Add Company</h2>
-  )
+    <div>
+      <h2>Add Company</h2>
+      <form onSubmit={handleSubmit}>
+        <label>Name:</label>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+        <br />
+        <label>Type:</label>
+        <input
+          type="text"
+          value={type}
+          onChange={(e) => setType(e.target.value)}
+          required
+        />
+        <br />
+        <label>Localisation:</label>
+        <input
+          type="text"
+          value={localisation}
+          onChange={(e) => setLocalisation(e.target.value)}
+          required
+        />
+        <br />
+        <label>Short Description:</label>
+        <input
+          type="text"
+          value={shortDescription}
+          onChange={(e) => setShortDescription(e.target.value)}
+          required
+        />
+        <br />
+        <label>Long Description:</label>
+        <textarea
+          value={longDescription}
+          onChange={(e) => setLongDescription(e.target.value)}
+          required
+        />
+        <br />
+        <button type="submit">Add Company</button>
+      </form>
+    </div>
+  );
 };
 
 const AddService = () => {
