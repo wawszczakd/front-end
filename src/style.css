@@ -84,13 +84,19 @@ form label {
 form input[type="date"],
 form input[type="time"],
 form input[type="text"],
-form input[type="email"] {
+form input[type="email"],
+form input[type="password"],
+form textarea {
 	width: 100%;
 	padding: 10px;
 	margin-bottom: 10px;
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	box-sizing: border-box;
+}
+
+form textarea {
+	height: 200px;
 }
 
 form button[type="submit"] {
@@ -155,8 +161,7 @@ form button[type="submit"]:hover {
 	overflow: auto;
 }
 
-.login-button,
-.register-button {
+.button {
 	padding: 10px 20px;
 	background-color: #007bff;
 	color: #fff;
@@ -167,17 +172,6 @@ form button[type="submit"]:hover {
 	width: 160px;
 }
 
-.login-button:hover,
-.register-button:hover {
+.button:hover {
 	background-color: #0069d9;
 }
-
-.form-input {
-	width: 100%;
-	padding: 10px;
-	margin-bottom: 10px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	box-sizing: border-box;
-}
-  

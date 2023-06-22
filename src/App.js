@@ -28,10 +28,10 @@ const Start = () => {
     <div>
       <h2>Welcome to the Booksy Clone App</h2>
       <h3>Please choose what you would like to do</h3>
-      <button className="login-button" onClick={handleLoginCustomer}>Login Customer</button>
-      <button className="login-button" onClick={handleLoginOwner}>Login Owner</button>
-      <button className="register-button" onClick={handleRegisterCustomer}>Register Customer</button>
-      <button className="register-button" onClick={handleRegisterOwner}>Register Owner</button>
+      <button className="button" onClick={handleLoginCustomer}>Login Customer</button>
+      <button className="button" onClick={handleLoginOwner}>Login Owner</button>
+      <button className="button" onClick={handleRegisterCustomer}>Register Customer</button>
+      <button className="button" onClick={handleRegisterOwner}>Register Owner</button>
     </div>
   );
 };
@@ -77,7 +77,6 @@ const LoginCustomer = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="form-input"
         />
         <br />
         <label>Password:</label>
@@ -86,7 +85,6 @@ const LoginCustomer = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="form-input"
         />
         <br />
         <br />
@@ -120,7 +118,7 @@ const LoginOwner = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        navigate('/companies');
+        navigate('/owner-dashboard');
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -137,7 +135,6 @@ const LoginOwner = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="form-input"
         />
         <br />
         <label>Password:</label>
@@ -146,7 +143,6 @@ const LoginOwner = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="form-input"
         />
         <br />
         <br />
@@ -201,7 +197,6 @@ const RegisterCustomer = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
-          className="form-input"
         />
         <br />
         <label>Surname:</label>
@@ -210,7 +205,6 @@ const RegisterCustomer = () => {
           value={surname}
           onChange={(e) => setSurname(e.target.value)}
           required
-          className="form-input"
         />
         <br />
         <label>Email:</label>
@@ -219,7 +213,6 @@ const RegisterCustomer = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="form-input"
         />
         <br />
         <label>Password:</label>
@@ -228,7 +221,6 @@ const RegisterCustomer = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="form-input"
         />
         <br />
         <br />
@@ -283,7 +275,6 @@ const RegisterOwner = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
-          className="form-input"
         />
         <br />
         <label>Surname:</label>
@@ -292,7 +283,6 @@ const RegisterOwner = () => {
           value={surname}
           onChange={(e) => setSurname(e.target.value)}
           required
-          className="form-input"
         />
         <br />
         <label>Email:</label>
@@ -301,7 +291,6 @@ const RegisterOwner = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="form-input"
         />
         <br />
         <label>Password:</label>
@@ -310,7 +299,6 @@ const RegisterOwner = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="form-input"
         />
         <br />
         <br />
@@ -450,7 +438,6 @@ const ServiceCard = ({ service, companyId }) => {
       return `${minutes} m`;
     }
   };
-  
 
   return (
     <div className="service-card" onClick={handleSelectService}>
@@ -463,80 +450,99 @@ const ServiceCard = ({ service, companyId }) => {
 };
 
 const BookingForm = () => {
-  const [bookingDetails, setBookingDetails] = useState({
-    date: '',
-    time: '',
-    name: '',
-    email: '',
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setBookingDetails((prevDetails) => ({
-      ...prevDetails,
-      [name]: value,
-    }));
-  };
-
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
+  const [email, setEmail] = useState('');
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Booking Details:', bookingDetails);
-    // Handle form submission here
-    alert('Form submitted');
+    
+    const formData = {
+      date: date,
+      time: time,
+      mail: email,
+    };
+    
+    console.log('Form Data:', formData);
   };
-
+  
   return (
     <div>
       <h2>Booking Form</h2>
       <form onSubmit={handleSubmit}>
-        <label>
-          Date:
-          <input
-            type="date"
-            name="date"
-            value={bookingDetails.date}
-            onChange={handleInputChange}
-            required
-          />
-        </label>
+        <label>Date:</label>
+        <input
+          type="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          required
+        />
         <br />
-        <label>
-          Time:
-          <input
-            type="time"
-            name="time"
-            value={bookingDetails.time}
-            onChange={handleInputChange}
-            required
-          />
-        </label>
+        <label>Time:</label>
+        <input
+          type="time"
+          value={time}
+          onChange={(e) => setTime(e.target.value)}
+          required
+        />
         <br />
-        <label>
-          Name:
-          <input
-            type="text"
-            name="name"
-            value={bookingDetails.name}
-            onChange={handleInputChange}
-            required
-          />
-        </label>
-        <br />
-        <label>
-          Email:
-          <input
-            type="email"
-            name="email"
-            value={bookingDetails.email}
-            onChange={handleInputChange}
-            required
-          />
-        </label>
+        <label>Email:</label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
         <br />
         <button type="submit">Submit</button>
       </form>
     </div>
   );
+};
+
+const OwnerDashboard = () => {
+  const navigate = useNavigate();
+
+  const handleAddCompany = () => {
+    navigate('/owner-dashboard/add-company');
+  };
+
+  const handleAddService = () => {
+    navigate('/owner-dashboard/add-service');
+  };
+
+  const handleAddWorker = () => {
+    navigate('/owner-dashboard/add-worker');
+  };
+
+  return (
+    <div>
+      <h2>Owner Dashboard</h2>
+      <h3>Please choose an action</h3>
+      
+      <button className="button" onClick={handleAddCompany}>Add Company</button>
+      <button className="button" onClick={handleAddService}>Add Service</button>
+      <button className="button" onClick={handleAddWorker}>Add Worker</button>
+    </div>
+  );
+};
+
+const AddCompany = () => {
+  return (
+    <h2>Add Company</h2>
+  )
+};
+
+const AddService = () => {
+  return (
+    <h2>Add Service</h2>
+  )
+};
+
+const AddWorker = () => {
+  return (
+    <h2>Add Worker</h2>
+  )
 };
 
 const App = () => {
@@ -552,6 +558,10 @@ const App = () => {
           <Route path="/companies" element={<CompanyList />} />
           <Route path="/companies/:companyId" element={<CompanyDetails />} />
           <Route path="/companies/:companyId/:serviceId" element={<BookingForm />} />
+          <Route path="/owner-dashboard" element={<OwnerDashboard />} />
+          <Route path="/owner-dashboard/add-company" element={<AddCompany />} />
+          <Route path="/owner-dashboard/add-service" element={<AddService />} />
+          <Route path="/owner-dashboard/add-worker" element={<AddWorker />} />
         </Routes>
       </div>
     </Router>
