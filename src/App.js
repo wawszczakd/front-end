@@ -678,7 +678,6 @@ const AddService = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         navigate(`/owner-dashboard/${companyId}`);
       })
       .catch((error) => {
@@ -736,6 +735,7 @@ const AddEmployee = () => {
   const navigate = useNavigate();
   
   const { companyId } = useParams();
+  const [company, setCompany] = useState(null);
   
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
@@ -749,6 +749,19 @@ const AddEmployee = () => {
     su: []
   });
   const [competence, setCompetence] = useState([]);
+  
+  useEffect(() => {
+    fetch(`${API_URL}/companies/${companyId}`)
+      .then(response => response.json())
+      .then(data => setCompany(data))
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }, [companyId]);
+
+  if (!company) {
+    return <div>Loading...</div>;
+  }
 
   const handleWorkTimeChange = (day, index, field, value) => {
     setWorkTimes((prevWorkTimes) => {
@@ -761,7 +774,7 @@ const AddEmployee = () => {
   const handleAddWorkTime = (event, day) => {
     event.preventDefault();
     event.stopPropagation();
-  
+    
     setWorkTimes((prevWorkTimes) => {
       const updatedWorkTimes = {
         ...prevWorkTimes,
@@ -783,14 +796,35 @@ const AddEmployee = () => {
       return updatedWorkTimes;
     });
   };
+  
+  const handleServiceChange = (serviceId) => {
+    if (competence.includes(serviceId)) {
+      setCompetence((prevCompetence) =>
+        prevCompetence.filter((id) => id !== serviceId)
+      );
+    } else {
+      setCompetence((prevCompetence) => [...prevCompetence, serviceId]);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    
+    const formattedWorkTimes = {
+      ...workTimes,
+      mo: formatWorkTimes(workTimes.mo),
+      tu: formatWorkTimes(workTimes.tu),
+      we: formatWorkTimes(workTimes.we),
+      th: formatWorkTimes(workTimes.th),
+      fr: formatWorkTimes(workTimes.fr),
+      sa: formatWorkTimes(workTimes.sa),
+      su: formatWorkTimes(workTimes.su)
+    };
+    
     const formData = {
       name: name,
       surname: surname,
-      work_times: workTimes,
+      work_times: formattedWorkTimes,
       competence: competence
     };
     
@@ -806,7 +840,6 @@ const AddEmployee = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         navigate(`/owner-dashboard/${companyId}`);
       })
       .catch((error) => {
@@ -822,6 +855,18 @@ const AddEmployee = () => {
     fr: 'Friday',
     sa: 'Saturday',
     su: 'Sunday'
+  };
+  
+  const formatWorkTimes = (workTimes) => {
+    return workTimes.map((time) => ({
+      from: formatTime(time.from),
+      to: formatTime(time.to)
+    }));
+  };
+  
+  const formatTime = (time) => {
+    const formattedTime = time.replace(/:/g, '');
+    return formattedTime.slice(0, 4);
   };
   
   return (
@@ -881,12 +926,18 @@ const AddEmployee = () => {
         ))}
         <br />
         <label>Competence:</label>
-        <input
-          type="text"
-          value={competence}
-          onChange={(e) => setCompetence(e.target.value)}
-          required
-        />
+        {company.services.map((service) => (
+          <div key={service.id}>
+            <input
+              type="checkbox"
+              id={service.id}
+              value={service.id}
+              checked={competence.includes(service.id)}
+              onChange={() => handleServiceChange(service.id)}
+            />
+            <label htmlFor={service.id}>{service.name}</label>
+          </div>
+        ))}
         <br />
         <button type="submit">Add Employee</button>
       </form>
