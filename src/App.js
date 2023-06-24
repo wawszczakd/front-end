@@ -536,6 +536,12 @@ const OwnerDashboard = () => {
       });
   }, []);
   
+  const removeCompany = (companyId) => {
+    setCompanies((prevCompanies) =>
+      prevCompanies.filter((company) => company.id !== companyId)
+    );
+  };
+  
   return (
     <div className="companies-list-layout">
       <div className="companies-list-top">
@@ -545,15 +551,27 @@ const OwnerDashboard = () => {
         
         <br />
         <br />
+        <br />
+        <br />
         
         <h2>Your companies</h2>
       </div>
       
-      <div className="companies-list-bottom">
-        {companies.map((company) => (
-          <OwnerCompanyCard key={company.id} company={company} />
-        ))}
-      </div>
+      {companies.length > 0 ? (
+        <div className="companies-list-bottom">
+          {companies.map((company) => (
+            <OwnerCompanyCard
+              key={company.id}
+              company={company}
+              onRemove={() => removeCompany(company.id)}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="companies-list-bottom">
+          <p>You don't have any companies</p>
+        </div>
+      )}
     </div>
   );
 };
@@ -926,7 +944,7 @@ const AddEmployee = () => {
         ))}
         <br />
         <label>Competence:</label>
-        {company.services.map((service) => (
+        {company.services && company.services.map((service) => (
           <div key={service.id}>
             <input
               type="checkbox"
@@ -945,11 +963,32 @@ const AddEmployee = () => {
   );
 };
 
-const OwnerCompanyCard = ({ company }) => {
+const OwnerCompanyCard = ({ company, onRemove }) => {
   const navigate = useNavigate();
 
   const handleSelectCompany = () => {
     navigate(`/owner-dashboard/${company.id}`);
+  };
+
+  const handleRemoveCompany = (event) => {
+    event.stopPropagation();
+
+    const token = localStorage.getItem('token');
+
+    fetch(`${API_URL}/companies/${company.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        onRemove();
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   };
 
   return (
@@ -958,33 +997,55 @@ const OwnerCompanyCard = ({ company }) => {
       <p>{company.localisation}</p>
       <p>{company.type}</p>
       <p>{company.short_description}</p>
+      <button className="remove-button" onClick={handleRemoveCompany}>
+        Remove
+      </button>
     </div>
   );
 };
 
-const OwnerServiceCard = ({ service }) => {
+const OwnerServiceCard = ({ service, onRemove }) => {
+  const { companyId } = useParams();
+  
   const formatPrice = (price) => {
     const zl = Math.floor(price / 100);
     const gr = price % 100;
-  
+
     if (zl > 0) {
       return `${zl} zł ${gr} gr`;
-    }
-    else {
+    } else {
       return `${gr} gr`;
     }
   };
-  
+
   const formatDuration = (duration) => {
     const hours = Math.floor(duration / 60);
     const minutes = duration % 60;
-  
+
     if (hours > 0) {
       return `${hours} h ${minutes} m`;
-    }
-    else {
+    } else {
       return `${minutes} m`;
     }
+  };
+
+  const handleRemoveService = () => {
+    const token = localStorage.getItem('token');
+  
+    fetch(`${API_URL}/companies/${companyId}/services/${service.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        onRemove(service.id);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   };
 
   return (
@@ -993,28 +1054,79 @@ const OwnerServiceCard = ({ service }) => {
       <p>Price: {formatPrice(service.price)}</p>
       <p>Duration: {formatDuration(service.duration)}</p>
       <p>Description: {service.description}</p>
+      <button className="remove-button" onClick={handleRemoveService}>
+        Remove
+      </button>
+    </div>
+  );
+};
+
+const OwnerEmployeeCard = ({ employee, onRemove }) => {
+  const { companyId } = useParams();
+  
+  const handleRemoveEmployee = () => {
+    const token = localStorage.getItem('token');
+    
+    fetch(`${API_URL}/companies/${companyId}/employees/${employee.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        onRemove(employee.id);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+  
+  return (
+    <div className="not-clickable-card">
+      <p>{employee.name} {employee.surname}</p>
+      <button className="remove-button" onClick={handleRemoveEmployee}>
+        Remove
+      </button>
     </div>
   );
 };
 
 const OwnerCompanyDetails = () => {
   const navigate = useNavigate();
-  
+
   const { companyId } = useParams();
   const [company, setCompany] = useState(null);
-  
+  const [services, setServices] = useState([]);
+  const [employees, setEmployees] = useState([]);
+
   const handleAddService = () => {
     navigate(`/owner-dashboard/${companyId}/add-service`);
   };
-  
+
   const handleAddEmployee = () => {
     navigate(`/owner-dashboard/${companyId}/add-employee`);
   };
-  
+
+  const handleRemoveService = (serviceId) => {
+    const updatedServices = services.filter(service => service.id !== serviceId);
+    setServices(updatedServices);
+  };
+
+  const handleRemoveEmployee = (employeeId) => {
+    const updatedEmployees = employees.filter(employee => employee.id !== employeeId);
+    setEmployees(updatedEmployees);
+  };
+
   useEffect(() => {
     fetch(`${API_URL}/companies/${companyId}`)
       .then(response => response.json())
-      .then(data => setCompany(data))
+      .then(data => {
+        setCompany(data);
+        setServices(data.services);
+        setEmployees(data.employees);
+      })
       .catch(error => {
         console.error('Error:', error);
       });
@@ -1031,17 +1143,21 @@ const OwnerCompanyDetails = () => {
         <h3>{company.name}</h3>
         <p>{company.long_description}</p>
         <button className="button" onClick={handleAddService}>Add Service</button>
-        <button className="button" onClick={handleAddEmployee}>Add employee</button>
+        <button className="button" onClick={handleAddEmployee}>Add Employee</button>
       </div>
-      
+
       <div className="left-top-pane">
         <h2>List of Employees</h2>
       </div>
-      
-      {company.employees ? (
+
+      {employees && employees.length > 0 ? (
         <div className="left-bottom-pane">
-          {company.employees.map((employee) => (
-            <EmployeeCard key={employee.id} employee={employee} />
+          {employees.map((employee) => (
+            <OwnerEmployeeCard
+              key={employee.id}
+              employee={employee}
+              onRemove={() => handleRemoveEmployee(employee.id)}
+            />
           ))}
         </div>
       ) : (
@@ -1049,15 +1165,19 @@ const OwnerCompanyDetails = () => {
           <p>No employees found.</p>
         </div>
       )}
-      
+
       <div className="right-top-pane">
         <h2>List of Services</h2>
       </div>
-      
-      {company.services ? (
+
+      {services && services.length > 0 ? (
         <div className="right-bottom-pane">
-          {company.services.map((service) => (
-            <OwnerServiceCard key={service.id} service={service} companyId={companyId} />
+          {services.map((service) => (
+            <OwnerServiceCard
+              key={service.id}
+              service={service}
+              onRemove={() => handleRemoveService(service.id)}
+            />
           ))}
         </div>
       ) : (
