@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate } from 'r
 
 import { LoginCustomer, LoginOwner, RegisterCustomer, RegisterOwner } from './components/registration-and-login.js'
 import { CustomerDashboard, CustomerCompanyDetails, BookingForm } from './components/customer/views.js';
-import { OwnerDashboard, OwnerCompanyDetails } from './components/owner/views.js';
+import { OwnerDashboard, OwnerCompanyDetails, OwnerEmployeeDetails } from './components/owner/views.js';
 import { AddCompany, AddService, AddEmployee } from './components/owner/adding.js';
 import { ModifyCompany, ModifyService, ModifyEmployee } from './components/owner/modifying.js';
 
@@ -57,8 +57,9 @@ const App = () => {
           <Route path="/customer-dashboard/:companyId" element={<CustomerCompanyDetails />} />
           <Route path="/customer-dashboard/:companyId/:serviceId" element={<BookingForm />} />
           <Route path="/owner-dashboard" element={<OwnerDashboard />} />
-          <Route path="/owner-dashboard/add-company" element={<AddCompany />} />
           <Route path="/owner-dashboard/:companyId" element={<OwnerCompanyDetails />} />
+          <Route path="/owner-dashboard/:companyId/employee/:employeeId" element={<OwnerEmployeeDetails />} />
+          <Route path="/owner-dashboard/add-company" element={<AddCompany />} />
           <Route path="/owner-dashboard/:companyId/add-service" element={<AddService />} />
           <Route path="/owner-dashboard/:companyId/add-employee" element={<AddEmployee />} />
           <Route path="/owner-dashboard/modify-company/:companyId" element={<ModifyCompany />} />

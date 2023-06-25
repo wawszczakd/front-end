@@ -3,7 +3,7 @@ const formatTime = (time) => {
   return formattedTime.slice(0, 4);
 };
 
-export const formatWorkTimes = (workTimes) => {	
+export const formatWorkTimes = (workTimes) => {
   return workTimes.map((time) => ({
     from: formatTime(time.from),
     to: formatTime(time.to)

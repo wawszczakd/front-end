@@ -167,3 +167,40 @@ export const OwnerCompanyDetails = () => {
     </div>
   );
 };
+
+export const OwnerEmployeeDetails = () => {
+  const { companyId, employeeId } = useParams();
+  const [employee, setEmployee] = useState(null);
+  
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    
+    fetch(`${API_URL}/companies/${companyId}/employees/${employeeId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        setEmployee(data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }, [companyId, employeeId]);
+  
+  if (!employee) {
+    return <div>Loading...</div>;
+  }
+  
+  return (
+    <div>
+      <h2>Employee Details</h2>
+      <h3>{employee.name} {employee.surname}</h3>
+      <p>{JSON.stringify(employee.work_times)}</p>
+      <p>{JSON.stringify(employee.competence)}</p>
+    </div>
+  );
+};

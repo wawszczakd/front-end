@@ -133,9 +133,15 @@ export const OwnerEmployeeCard = ({ employee, onRemove }) => {
     navigate(`/owner-dashboard/${companyId}/modify-employee/${employee.id}`);
   };
   
+  const handleSelectEmployee = () => {
+    navigate(`/owner-dashboard/${companyId}/employee/${employee.id}`);
+  };
+  
   return (
-    <div className="not-clickable-card">
-      <p>{employee.name} {employee.surname}</p>
+    <div className="clickable-card">
+      <div className="left-part" onClick={handleSelectEmployee}>
+        <p>{employee.name} {employee.surname}</p>
+      </div>
       <div className="button-group">
         <button className="modify-button" onClick={handleModifyEmployee}>
           Modify
