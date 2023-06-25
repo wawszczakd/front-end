@@ -991,15 +991,26 @@ const OwnerCompanyCard = ({ company, onRemove }) => {
       });
   };
 
+  const handleModifyCompany = (event) => {
+    event.stopPropagation();
+    
+    console.log("modify company");
+  };
+
   return (
     <div className="clickable-card" onClick={handleSelectCompany}>
       <h3>{company.name}</h3>
       <p>{company.localisation}</p>
       <p>{company.type}</p>
       <p>{company.short_description}</p>
-      <button className="remove-button" onClick={handleRemoveCompany}>
-        Remove
-      </button>
+      <div className="button-group">
+        <button className="modify-button" onClick={handleModifyCompany}>
+          Modify
+        </button>
+        <button className="remove-button" onClick={handleRemoveCompany}>
+          Remove
+        </button>
+      </div>
     </div>
   );
 };
@@ -1047,16 +1058,27 @@ const OwnerServiceCard = ({ service, onRemove }) => {
         console.error('Error:', error);
       });
   };
-
+  
+  const handleModifyService = (event) => {
+    event.stopPropagation();
+    
+    console.log("modify service");
+  };
+  
   return (
     <div className="not-clickable-card">
       <h3>{service.name}</h3>
       <p>Price: {formatPrice(service.price)}</p>
       <p>Duration: {formatDuration(service.duration)}</p>
       <p>Description: {service.description}</p>
-      <button className="remove-button" onClick={handleRemoveService}>
-        Remove
-      </button>
+      <div className="button-group">
+        <button className="modify-button" onClick={handleModifyService}>
+          Modify
+        </button>
+        <button className="remove-button" onClick={handleRemoveService}>
+          Remove
+        </button>
+      </div>
     </div>
   );
 };
@@ -1083,12 +1105,23 @@ const OwnerEmployeeCard = ({ employee, onRemove }) => {
       });
   };
   
+  const handleModifyEmployee = (event) => {
+    event.stopPropagation();
+    
+    console.log("modify employee");
+  };
+  
   return (
     <div className="not-clickable-card">
       <p>{employee.name} {employee.surname}</p>
-      <button className="remove-button" onClick={handleRemoveEmployee}>
-        Remove
-      </button>
+      <div className="button-group">
+        <button className="modify-button" onClick={handleModifyEmployee}>
+          Modify
+        </button>
+        <button className="remove-button" onClick={handleRemoveEmployee}>
+          Remove
+        </button>
+      </div>
     </div>
   );
 };

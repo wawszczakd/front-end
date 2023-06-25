@@ -21,7 +21,7 @@ h2 {
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	transition: box-shadow 0.3s ease;
 	position: relative;
-	min-height: 100px;
+	min-height: 110px;
 }
 
 .clickable-card:hover {
@@ -43,7 +43,7 @@ h2 {
 	padding: 10px;
 	margin-bottom: 10px;
 	position: relative;
-	min-height: 100px;
+	min-height: 110px;
 }
 
 .not-clickable-card p {
@@ -159,10 +159,17 @@ form button[type="submit"]:hover {
 	background-color: #0069d9;
 }
 
-.remove-button {
+.button-group {
 	position: absolute;
-	top: 0;
-	right: 0;
+	top: 0px;
+	right: 0px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	margin-top: 10px;
+}
+
+.remove-button {
 	margin: 10px;
 	padding: 10px 20px;
 	background-color: #007bff;
@@ -171,8 +178,24 @@ form button[type="submit"]:hover {
 	cursor: pointer;
 	border-radius: 4px;
 	width: 100px;
-  }
-  
-  .remove-button:hover {
+}
+
+.remove-button:hover {
 	background-color: #0069d9;
-  }
+}
+
+.modify-button {
+	margin: 10px;
+	padding: 10px 20px;
+	background-color: #007bff;
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	cursor: pointer;
+	border-radius: 4px;
+	width: 100px;
+}
+
+.modify-button:hover {
+	background-color: #0069d9;
+}
