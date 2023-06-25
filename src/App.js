@@ -664,6 +664,117 @@ const AddCompany = () => {
   );
 };
 
+const ModifyCompany = () => {
+  const navigate = useNavigate();
+  
+  const { companyId } = useParams();
+  const [company, setCompany] = useState(null);
+  const [name, setName] = useState('');
+  const [type, setType] = useState('');
+  const [localisation, setLocalisation] = useState('');
+  const [shortDescription, setShortDescription] = useState('');
+  const [longDescription, setLongDescription] = useState('');
+  
+  useEffect(() => {
+    fetch(`${API_URL}/companies/${companyId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCompany(data);
+        setName(data.name);
+        setType(data.type);
+        setLocalisation(data.localisation);
+        setShortDescription(data.short_description);
+        setLongDescription(data.long_description);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, [companyId]);
+  
+  if (!company) {
+    return <div>Loading...</div>;
+  }
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    const formData = {
+      name: name,
+      type: type,
+      localisation: localisation,
+      short_description: shortDescription,
+      long_description: longDescription
+    };
+    
+    const token = localStorage.getItem('token');
+    
+    fetch(`${API_URL}/companies/${company.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        navigate(`/owner-dashboard`);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+
+  return (
+    <div>
+      <h2>Modify Company</h2>
+      <form onSubmit={handleSubmit}>
+        <label>Name:</label>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+        <br />
+        <label>Type:</label>
+        <input
+          type="text"
+          value={type}
+          onChange={(e) => setType(e.target.value)}
+          required
+        />
+        <br />
+        <label>Localisation:</label>
+        <input
+          type="text"
+          value={localisation}
+          onChange={(e) => setLocalisation(e.target.value)}
+          required
+        />
+        <br />
+        <label>Short Description:</label>
+        <input
+          type="text"
+          value={shortDescription}
+          onChange={(e) => setShortDescription(e.target.value)}
+          required
+        />
+        <br />
+        <label>Long Description:</label>
+        <textarea
+          value={longDescription}
+          onChange={(e) => setLongDescription(e.target.value)}
+          required
+        />
+        <br />
+        <button type="submit">Modify Company</button>
+      </form>
+    </div>
+  );
+};
+
 const AddService = () => {
   const navigate = useNavigate();
   
@@ -990,25 +1101,25 @@ const OwnerCompanyCard = ({ company, onRemove }) => {
         console.error('Error:', error);
       });
   };
-
-  const handleModifyCompany = (event) => {
-    event.stopPropagation();
-    
-    console.log("modify company");
+  
+  const handleModifyCompany = () => {
+    navigate(`/owner-dashboard/modify-company/${company.id}`);
   };
-
+  
   return (
-    <div className="clickable-card" onClick={handleSelectCompany}>
-      <h3>{company.name}</h3>
-      <p>{company.localisation}</p>
-      <p>{company.type}</p>
-      <p>{company.short_description}</p>
+    <div className="clickable-card">
+      <div onClick={handleSelectCompany}>
+        <h3>{company.name}</h3>
+        <p>{company.localisation}</p>
+        <p>{company.type}</p>
+        <p>{company.short_description}</p>
+      </div>
       <div className="button-group">
-        <button className="modify-button" onClick={handleModifyCompany}>
-          Modify
-        </button>
         <button className="remove-button" onClick={handleRemoveCompany}>
           Remove
+        </button>
+        <button className="modify-button" onClick={handleModifyCompany}>
+          Modify
         </button>
       </div>
     </div>
@@ -1240,6 +1351,7 @@ const App = () => {
           <Route path="/owner-dashboard/:companyId" element={<OwnerCompanyDetails />} />
           <Route path="/owner-dashboard/:companyId/add-service" element={<AddService />} />
           <Route path="/owner-dashboard/:companyId/add-employee" element={<AddEmployee />} />
+          <Route path="/owner-dashboard/modify-company/:companyId" element={<ModifyCompany />} />
         </Routes>
       </div>
     </Router>
