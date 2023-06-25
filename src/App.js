@@ -718,7 +718,6 @@ const ModifyCompany = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         navigate(`/owner-dashboard`);
       })
       .catch((error) => {
@@ -843,7 +842,6 @@ const AddService = () => {
           onChange={(e) => setDuration(e.target.value)}
           min={10}
           max={480}
-          step={10}
           required
         />
         <br />
@@ -855,6 +853,92 @@ const AddService = () => {
         />
         <br />
         <button type="submit">Add Service</button>
+      </form>
+    </div>
+  );
+};
+
+const ModifyService = () => {
+  const navigate = useNavigate();
+  
+  const service = JSON.parse(localStorage.getItem('service'));
+  
+  const { companyId, serviceId } = useParams();
+  
+  const [name, setName] = useState(service.name);
+  const [price, setPrice] = useState(service.price);
+  const [duration, setDuration] = useState(service.duration);
+  const [description, setDescription] = useState(service.description);
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = {
+      name: name,
+      price: parseInt(price),
+      duration: parseInt(duration),
+      description: description
+    };
+    
+    const token = localStorage.getItem('token');
+    
+    fetch(`${API_URL}/companies/${companyId}/services/${serviceId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        navigate(`/owner-dashboard/${companyId}`);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+
+  return (
+    <div>
+      <h2>Modify Service</h2>
+      <form onSubmit={handleSubmit}>
+        <label>Name:</label>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+        <br />
+        <label>Price:</label>
+        <input
+          type="number"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          min={1}
+          max={1000000}
+          required
+        />
+        <br />
+        <label>Duration (m):</label>
+        <input
+          type="number"
+          value={duration}
+          onChange={(e) => setDuration(e.target.value)}
+          min={10}
+          max={480}
+          required
+        />
+        <br />
+        <label>Description:</label>
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          required
+        />
+        <br />
+        <button type="submit">Modify Service</button>
       </form>
     </div>
   );
@@ -1127,6 +1211,8 @@ const OwnerCompanyCard = ({ company, onRemove }) => {
 };
 
 const OwnerServiceCard = ({ service, onRemove }) => {
+  const navigate = useNavigate();
+  
   const { companyId } = useParams();
   
   const formatPrice = (price) => {
@@ -1170,10 +1256,9 @@ const OwnerServiceCard = ({ service, onRemove }) => {
       });
   };
   
-  const handleModifyService = (event) => {
-    event.stopPropagation();
-    
-    console.log("modify service");
+  const handleModifyService = () => {
+    localStorage.setItem('service', JSON.stringify(service));
+    navigate(`/owner-dashboard/${companyId}/modify-service/${service.id}`);
   };
   
   return (
@@ -1352,6 +1437,7 @@ const App = () => {
           <Route path="/owner-dashboard/:companyId/add-service" element={<AddService />} />
           <Route path="/owner-dashboard/:companyId/add-employee" element={<AddEmployee />} />
           <Route path="/owner-dashboard/modify-company/:companyId" element={<ModifyCompany />} />
+          <Route path="/owner-dashboard/:companyId/modify-service/:serviceId" element={<ModifyService />} />
         </Routes>
       </div>
     </Router>
