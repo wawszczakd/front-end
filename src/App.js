@@ -708,7 +708,7 @@ const ModifyCompany = () => {
     
     const token = localStorage.getItem('token');
     
-    fetch(`${API_URL}/companies/${company.id}`, {
+    fetch(`${API_URL}/companies/${companyId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
