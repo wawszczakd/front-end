@@ -1,9 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useParams, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useParams, useNavigate, Navigate } from 'react-router-dom';
 
 import './style.css';
 
 const API_URL = 'http://0.0.0.0:8080';
+
+const formatWorkTimes = (workTimes) => {
+  return workTimes.map((time) => ({
+    from: formatTime(time.from),
+    to: formatTime(time.to)
+  }));
+};
+
+const formatTime = (time) => {
+  const formattedTime = time.replace(/:/g, '');
+  return formattedTime.slice(0, 4);
+};
+
+const reverseFormatWorkTimes = (workTimes) => {
+  return workTimes.map((time) => ({
+    from: reverseFormatTime(time.from),
+    to: reverseFormatTime(time.to)
+  }));
+};
+
+const reverseFormatTime = (formattedTime) => {
+  const timeWithColons = formattedTime.replace(/(\d{2})(\d{2})/, '$1:$2');
+  return timeWithColons;
+};
 
 const Start = () => {
   const navigate = useNavigate();
@@ -1070,18 +1094,6 @@ const AddEmployee = () => {
     su: 'Sunday'
   };
   
-  const formatWorkTimes = (workTimes) => {
-    return workTimes.map((time) => ({
-      from: formatTime(time.from),
-      to: formatTime(time.to)
-    }));
-  };
-  
-  const formatTime = (time) => {
-    const formattedTime = time.replace(/:/g, '');
-    return formattedTime.slice(0, 4);
-  };
-  
   return (
     <div>
       <h2>Add Employee</h2>
@@ -1156,6 +1168,14 @@ const AddEmployee = () => {
       </form>
     </div>
   );
+};
+
+const ModifyEmployee = () => {
+  const navigate = useNavigate();
+  
+  const { companyId, employeeId } = useParams();
+  
+  return ("Modify employee: " + companyId + " " + employeeId);
 };
 
 const OwnerCompanyCard = ({ company, onRemove }) => {
@@ -1280,6 +1300,8 @@ const OwnerServiceCard = ({ service, onRemove }) => {
 };
 
 const OwnerEmployeeCard = ({ employee, onRemove }) => {
+  const navigate = useNavigate();
+  
   const { companyId } = useParams();
   
   const handleRemoveEmployee = () => {
@@ -1301,10 +1323,8 @@ const OwnerEmployeeCard = ({ employee, onRemove }) => {
       });
   };
   
-  const handleModifyEmployee = (event) => {
-    event.stopPropagation();
-    
-    console.log("modify employee");
+  const handleModifyEmployee = () => {
+    navigate(`/owner-dashboard/${companyId}/modify-employee/${employee.id}`);
   };
   
   return (
@@ -1423,6 +1443,7 @@ const App = () => {
     <Router>
       <div>
         <Routes>
+          <Route path="/" element={<Navigate to="/start" replace />} />
           <Route path="/start" element={<Start />} />
           <Route path="/login-customer" element={<LoginCustomer />} />
           <Route path="/login-owner" element={<LoginOwner />} />
@@ -1438,6 +1459,7 @@ const App = () => {
           <Route path="/owner-dashboard/:companyId/add-employee" element={<AddEmployee />} />
           <Route path="/owner-dashboard/modify-company/:companyId" element={<ModifyCompany />} />
           <Route path="/owner-dashboard/:companyId/modify-service/:serviceId" element={<ModifyService />} />
+          <Route path="/owner-dashboard/:companyId/modify-employee/:employeeId" element={<ModifyEmployee />} />
         </Routes>
       </div>
     </Router>
