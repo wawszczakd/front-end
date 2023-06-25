@@ -825,7 +825,7 @@ const AddService = () => {
           required
         />
         <br />
-        <label>Price:</label>
+        <label>Price (gr):</label>
         <input
           type="number"
           value={price}
@@ -911,7 +911,7 @@ const ModifyService = () => {
           required
         />
         <br />
-        <label>Price:</label>
+        <label>Price (gr):</label>
         <input
           type="number"
           value={price}
