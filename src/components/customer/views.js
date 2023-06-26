@@ -56,6 +56,8 @@ export const CustomerCompanyDetails = () => {
         <h2>Company Details</h2>
         <h3>{company.name}</h3>
         <p>{company.long_description}</p>
+        
+        <br />
       </div>
       
       <div className="left-top-pane">

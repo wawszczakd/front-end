@@ -49,7 +49,6 @@ export const OwnerDashboard = () => {
         <br />
         <br />
         <br />
-        <br />
         
         <h2>Your companies</h2>
       </div>
@@ -66,7 +65,7 @@ export const OwnerDashboard = () => {
         </div>
       ) : (
         <div className="companies-list-bottom">
-          <p>You don't have any companies</p>
+          <p>No companies found.</p>
         </div>
       )}
     </div>
@@ -124,6 +123,10 @@ export const OwnerCompanyDetails = () => {
         <p>{company.long_description}</p>
         <button className="button" onClick={handleAddService}>Add Service</button>
         <button className="button" onClick={handleAddEmployee}>Add Employee</button>
+        
+        <br />
+        <br />
+        <br />
       </div>
       
       <div className="left-top-pane">
