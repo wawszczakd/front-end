@@ -21,7 +21,6 @@ h2 {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
   position: relative;
-  min-height: 100px;
 }
 
 .clickable-card:hover {
@@ -43,7 +42,6 @@ h2 {
   padding: 10px;
   margin-bottom: 10px;
   position: relative;
-  min-height: 100px;
 }
 
 .not-clickable-card p {
