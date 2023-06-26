@@ -144,6 +144,58 @@ form button[type="submit"]:hover {
 	overflow: auto;
 }
 
+.employee-layout {
+	display: grid;
+	grid-template-rows: min-content min-content auto;
+	grid-template-columns: repeat(7, 1fr);
+	height: calc(100vh - 40px);
+}
+
+.employee-top {
+	grid-area: 1 / 1 / 2 / 8;
+	overflow: auto;
+}
+
+.employee-bottom {
+	grid-area: 3 / 1 / 4 / 8;
+	overflow: auto;
+}
+
+.employee-mo {
+	grid-area: 2 / 1 / 3 / 2;
+	overflow: auto;
+}
+
+.employee-tu {
+	grid-area: 2 / 2 / 3 / 3;
+	overflow: auto;
+}
+
+.employee-we {
+	grid-area: 2 / 3 / 3 / 4;
+	overflow: auto;
+}
+
+.employee-th {
+	grid-area: 2 / 4 / 3 / 5;
+	overflow: auto;
+}
+
+.employee-fr {
+	grid-area: 2 / 5 / 3 / 6;
+	overflow: auto;
+}
+
+.employee-sa {
+	grid-area: 2 / 6 / 3 / 7;
+	overflow: auto;
+}
+
+.employee-su {
+	grid-area: 2 / 7 / 3 / 8;
+	overflow: auto;
+}
+
 .button {
 	padding: 10px 20px;
 	background-color: #007bff;
@@ -157,10 +209,6 @@ form button[type="submit"]:hover {
 
 .button:hover {
 	background-color: #0069d9;
-}
-
-.left-part {
-	min-height: 110px;
 }
 
 .button-group {

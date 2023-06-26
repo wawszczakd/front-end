@@ -10,16 +10,9 @@ export const formatWorkTimes = (workTimes) => {
   }));
 };
 
-const reverseFormatTime = (formattedTime) => {
+export const reverseFormatTime = (formattedTime) => {
   const timeWithColons = formattedTime.replace(/(\d{2})(\d{2})/, '$1:$2');
   return timeWithColons;
-};
-
-export const reverseFormatWorkTimes = (workTimes) => {
-  return workTimes.map((time) => ({
-    from: reverseFormatTime(time.from),
-    to: reverseFormatTime(time.to)
-  }));
 };
 
 export const formatPrice = (price) => {

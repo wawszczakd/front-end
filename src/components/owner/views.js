@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import { OwnerCompanyCard, OwnerServiceCard, OwnerEmployeeCard } from './cards';
+import { reverseFormatTime } from '../functions';
 import { API_URL } from '../../App.js';
 
 import '../../style.css';
@@ -17,7 +18,7 @@ export const OwnerDashboard = () => {
   
   useEffect(() => {
     const token = localStorage.getItem('token');
-  
+    
     fetch(`${API_URL}/owners/companies`, {
       method: 'GET',
       headers: {
@@ -170,7 +171,20 @@ export const OwnerCompanyDetails = () => {
 
 export const OwnerEmployeeDetails = () => {
   const { companyId, employeeId } = useParams();
+  const [company, setCompany] = useState(null);
   const [employee, setEmployee] = useState(null);
+  
+  
+  useEffect(() => {
+    fetch(`${API_URL}/companies/${companyId}`)
+      .then(response => response.json())
+      .then(data => {
+        setCompany(data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }, [companyId]);
   
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -189,18 +203,88 @@ export const OwnerEmployeeDetails = () => {
       .catch(error => {
         console.error('Error:', error);
       });
-  }, [companyId, employeeId]);
+  }, [employeeId]);
   
-  if (!employee) {
+  if (!company || !employee) {
     return <div>Loading...</div>;
   }
   
+  const generateTimeList = (day, workTimes) => {
+    if (workTimes && workTimes[day]) {
+      return workTimes[day].map((time, index) => (
+        <li key={index}>
+          {reverseFormatTime(time.from)} - {reverseFormatTime(time.to)}
+        </li>
+      ));
+    } else {
+      return null;
+    }
+  };
+  
+  const serviceNames = employee.competence.map((serviceId) => {
+    const service = company.services.find((service) => service.id === serviceId);
+    return service ? service.name : '';
+  });
+  
   return (
-    <div>
-      <h2>Employee Details</h2>
-      <h3>{employee.name} {employee.surname}</h3>
-      <p>{JSON.stringify(employee.work_times)}</p>
-      <p>{JSON.stringify(employee.competence)}</p>
+    <div className="employee-layout">
+      <div className="employee-top">
+        <h2>Employee Details</h2>
+        <h3>{employee.name} {employee.surname}</h3>
+        <br />
+        <h2>Work Times</h2>
+      </div>
+      <div className="employee-mo">
+        <p>Monday</p>
+        <ul style={{ padding: '0', paddingLeft: '20px' }}>
+          {generateTimeList("mo", employee.work_times)}
+        </ul>
+      </div>
+      <div className="employee-tu">
+        <p>Tuesday</p>
+        <ul style={{ padding: '0', paddingLeft: '20px' }}>
+          {generateTimeList("tu", employee.work_times)}
+        </ul>
+      </div>
+      <div className="employee-we">
+        <p>Wednesday</p>
+        <ul style={{ padding: '0', paddingLeft: '20px' }}>
+          {generateTimeList("we", employee.work_times)}
+        </ul>
+      </div>
+      <div className="employee-th">
+        <p>Thursday</p>
+        <ul style={{ padding: '0', paddingLeft: '20px' }}>
+          {generateTimeList("th", employee.work_times)}
+        </ul>
+      </div>
+      <div className="employee-fr">
+        <p>Friday</p>
+        <ul style={{ padding: '0', paddingLeft: '20px' }}>
+          {generateTimeList("fr", employee.work_times)}
+        </ul>
+      </div>
+      <div className="employee-sa">
+        <p>Saturday</p>
+        <ul style={{ padding: '0', paddingLeft: '20px' }}>
+          {generateTimeList("fr", employee.work_times)}
+        </ul>
+      </div>
+      <div className="employee-su">
+        <p>Sunday</p>
+        <ul style={{ padding: '0', paddingLeft: '20px' }}>
+          {generateTimeList("su", employee.work_times)}
+        </ul>
+      </div>
+      <div className="employee-bottom">
+        <br />
+        <h2>Competence</h2>
+        <ul style={{ padding: '0', paddingLeft: '20px' }}>
+          {serviceNames.map((serviceName, index) => (
+            <li key={index}>{serviceName}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

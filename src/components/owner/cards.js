@@ -139,8 +139,12 @@ export const OwnerEmployeeCard = ({ employee, onRemove }) => {
   
   return (
     <div className="clickable-card">
-      <div className="left-part" onClick={handleSelectEmployee}>
+      <div onClick={handleSelectEmployee}>
         <p>{employee.name} {employee.surname}</p>
+        <br />
+        <br />
+        <br />
+        <br />
       </div>
       <div className="button-group">
         <button className="modify-button" onClick={handleModifyEmployee}>
