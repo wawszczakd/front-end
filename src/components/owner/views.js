@@ -39,12 +39,17 @@ export const OwnerDashboard = () => {
     );
   };
   
+  const handleBack = () => {
+    navigate(`/start`);
+  };
+  
   return (
     <div className="companies-list-layout">
       <div className="companies-list-top">
         <h2>Owner Dashboard</h2>
         
         <button className="button" onClick={handleAddCompany}>Add Company</button>
+        <button className="button" onClick={handleBack}>Back</button>
         
         <br />
         <br />
@@ -115,14 +120,20 @@ export const OwnerCompanyDetails = () => {
     return <div>Loading...</div>;
   }
   
+  const handleBack = () => {
+    navigate(`/owner-dashboard/`);
+  };
+  
   return (
     <div className="split-layout">
       <div className="top-pane">
         <h2>Company Details</h2>
         <h3>{company.name}</h3>
         <p>{company.long_description}</p>
+        
         <button className="button" onClick={handleAddService}>Add Service</button>
         <button className="button" onClick={handleAddEmployee}>Add Employee</button>
+        <button className="button" onClick={handleBack}>Back</button>
         
         <br />
         <br />
@@ -173,10 +184,11 @@ export const OwnerCompanyDetails = () => {
 };
 
 export const OwnerEmployeeDetails = () => {
+  const navigate = useNavigate();
+  
   const { companyId, employeeId } = useParams();
   const [company, setCompany] = useState(null);
   const [employee, setEmployee] = useState(null);
-  
   
   useEffect(() => {
     fetch(`${API_URL}/companies/${companyId}`)
@@ -224,19 +236,33 @@ export const OwnerEmployeeDetails = () => {
     }
   };
   
-  const serviceNames = employee.competence.map((serviceId) => {
-    const service = company.services.find((service) => service.id === serviceId);
-    return service ? service.name : '';
-  });
+  const serviceNames = employee.competence
+  ? employee.competence.map((serviceId) => {
+      const service = company.services.find((service) => service.id === serviceId);
+      return service ? service.name : '';
+    })
+  : [];
+  
+  const handleBack = () => {
+    navigate(`/owner-dashboard/${companyId}`);
+  };
   
   return (
     <div className="employee-layout">
       <div className="employee-top">
+        <button className="button" onClick={handleBack}>Back</button>
+        
+        <br />
+        <br />
+        
         <h2>Employee Details</h2>
         <h3>{employee.name} {employee.surname}</h3>
+        
         <br />
+        
         <h2>Work Times</h2>
       </div>
+      
       <div className="employee-mo">
         <p>Monday</p>
         <ul style={{ padding: '0', paddingLeft: '20px' }}>
@@ -279,6 +305,7 @@ export const OwnerEmployeeDetails = () => {
           {generateTimeList("su", employee.work_times)}
         </ul>
       </div>
+      
       <div className="employee-bottom">
         <br />
         <h2>Competence</h2>

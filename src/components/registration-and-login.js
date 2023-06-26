@@ -29,16 +29,21 @@ export const LoginCustomer = () => {
       .then((response) => response.json())
       .then((data) => {
         localStorage.setItem('token', data.token);
-        navigate('/customer-dashboard');
+        navigate(`/customer-dashboard`);
       })
       .catch((error) => {
         console.error('Error:', error);
       });
   };
   
+  const handleBack = () => {
+    navigate(`/start`);
+  };
+  
   return (
     <div>
       <h2>Login Customer</h2>
+      
       <form onSubmit={handleSubmit}>
         <label>Email:</label>
         <input
@@ -57,7 +62,8 @@ export const LoginCustomer = () => {
         />
         <br />
         <br />
-        <button type="submit">Login</button>
+        <button className="button" type="submit">Login</button>
+        <button className="button" onClick={handleBack}>Back</button>
       </form>
     </div>
   );
@@ -87,16 +93,21 @@ export const LoginOwner = () => {
       .then((response) => response.json())
       .then((data) => {
         localStorage.setItem('token', data.token);
-        navigate('/owner-dashboard');
+        navigate(`/owner-dashboard`);
       })
       .catch((error) => {
         console.error('Error:', error);
       });
   };
   
+  const handleBack = () => {
+    navigate(`/start`);
+  };
+  
   return (
     <div>
       <h2>Login Owner</h2>
+      
       <form onSubmit={handleSubmit}>
         <label>Email:</label>
         <input
@@ -115,7 +126,8 @@ export const LoginOwner = () => {
         />
         <br />
         <br />
-        <button type="submit">Login</button>
+        <button className="button" type="submit">Login</button>
+        <button className="button" onClick={handleBack}>Back</button>
       </form>
     </div>
   );
@@ -148,16 +160,21 @@ export const RegisterCustomer = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        navigate(`/start`);
+        navigate(`/login-customer`);
       })
       .catch((error) => {
         console.error('Error:', error);
       });
   };
   
+  const handleBack = () => {
+    navigate('/start');
+  };
+  
   return (
     <div>
       <h2>Register Customer</h2>
+      
       <form onSubmit={handleSubmit}>
         <label>Name:</label>
         <input
@@ -192,7 +209,8 @@ export const RegisterCustomer = () => {
         />
         <br />
         <br />
-        <button type="submit">Register</button>
+        <button className="button" type="submit">Register</button>
+        <button className="button" onClick={handleBack}>Back</button>
       </form>
     </div>
   );
@@ -225,16 +243,21 @@ export const RegisterOwner = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        navigate(`/start`);
+        navigate(`/login-owner`);
       })
       .catch((error) => {
         console.error('Error:', error);
       });
   };
   
+  const handleBack = () => {
+    navigate(`/start`);
+  };
+  
   return (
     <div>
       <h2>Register Customer</h2>
+      
       <form onSubmit={handleSubmit}>
         <label>Name:</label>
         <input
@@ -269,7 +292,8 @@ export const RegisterOwner = () => {
         />
         <br />
         <br />
-        <button type="submit">Register</button>
+        <button className="button" type="submit">Register</button>
+        <button className="button" onClick={handleBack}>Back</button>
       </form>
     </div>
   );

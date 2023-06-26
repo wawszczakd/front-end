@@ -45,9 +45,14 @@ export const AddCompany = () => {
       });
   };
   
+  const handleBack = () => {
+    navigate(`/owner-dashboard`);
+  };
+  
   return (
     <div>
       <h2>Add Company</h2>
+      
       <form onSubmit={handleSubmit}>
         <label>Name:</label>
         <input
@@ -88,7 +93,8 @@ export const AddCompany = () => {
           required
         />
         <br />
-        <button type="submit">Add Company</button>
+        <button className="button" type="submit">Add Company</button>
+        <button className="button" onClick={handleBack}>Back</button>
       </form>
     </div>
   );
@@ -133,9 +139,14 @@ export const AddService = () => {
       });
   };
   
+  const handleBack = () => {
+    navigate(`/owner-dashboard/${companyId}`);
+  };
+  
   return (
     <div>
       <h2>Add Service</h2>
+      
       <form onSubmit={handleSubmit}>
         <label>Name:</label>
         <input
@@ -172,7 +183,8 @@ export const AddService = () => {
           required
         />
         <br />
-        <button type="submit">Add Service</button>
+        <button className="button" type="submit">Add Service</button>
+        <button className="button" onClick={handleBack}>Back</button>
       </form>
     </div>
   );
@@ -304,9 +316,14 @@ export const AddEmployee = () => {
     su: 'Sunday'
   };
   
+  const handleBack = () => {
+    navigate(`/owner-dashboard/${companyId}`);
+  };
+  
   return (
     <div>
       <h2>Add Employee</h2>
+      
       <form onSubmit={handleSubmit}>
         <label>Name:</label>
         <input
@@ -374,7 +391,8 @@ export const AddEmployee = () => {
           </div>
         ))}
         <br />
-        <button type="submit">Add Employee</button>
+        <button className="button" type="submit">Add Employee</button>
+        <button className="button" onClick={handleBack}>Back</button>
       </form>
     </div>
   );

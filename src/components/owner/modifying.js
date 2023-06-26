@@ -66,9 +66,14 @@ export const ModifyCompany = () => {
       });
   };
   
+  const handleBack = () => {
+    navigate(`/owner-dashboard`);
+  };
+  
   return (
     <div>
       <h2>Modify Company</h2>
+      
       <form onSubmit={handleSubmit}>
         <label>Name:</label>
         <input
@@ -109,7 +114,8 @@ export const ModifyCompany = () => {
           required
         />
         <br />
-        <button type="submit">Modify Company</button>
+        <button className="button" type="submit">Modify Company</button>
+        <button className="button" onClick={handleBack}>Back</button>
       </form>
     </div>
   );
@@ -156,9 +162,14 @@ export const ModifyService = () => {
       });
   };
   
+  const handleBack = () => {
+    navigate(`/owner-dashboard/${companyId}`);
+  };
+  
   return (
     <div>
       <h2>Modify Service</h2>
+      
       <form onSubmit={handleSubmit}>
         <label>Name:</label>
         <input
@@ -195,7 +206,8 @@ export const ModifyService = () => {
           required
         />
         <br />
-        <button type="submit">Modify Service</button>
+        <button className="button" type="submit">Modify Service</button>
+        <button className="button" onClick={handleBack}>Back</button>
       </form>
     </div>
   );

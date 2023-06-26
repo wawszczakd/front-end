@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import { CustomerCompanyCard, CustomerServiceCard, CustomerEmployeeCard } from './cards.js';
 import { API_URL } from '../../App.js';
@@ -7,6 +7,8 @@ import { API_URL } from '../../App.js';
 import '../../style.css';
 
 export const CustomerDashboard = () => {
+  const navigate = useNavigate();
+  
   const [companies, setCompanies] = useState([]);
   
   useEffect(() => {
@@ -18,10 +20,21 @@ export const CustomerDashboard = () => {
       });
   }, []);
   
+  const handleBack = () => {
+    navigate(`/start`);
+  };
+  
   return (
     <div className="companies-list-layout">
       <div className="companies-list-top">
+        <button className="button" onClick={handleBack}>Back</button>
+        
+        <br />
+        <br />
+        
         <h2>List of Companies</h2>
+        
+        <br />
       </div>
       
       <div className="companies-list-bottom">
@@ -34,6 +47,8 @@ export const CustomerDashboard = () => {
 };
 
 export const CustomerCompanyDetails = () => {
+  const navigate = useNavigate();
+  
   const { companyId } = useParams();
   const [company, setCompany] = useState(null);
   
@@ -50,9 +65,18 @@ export const CustomerCompanyDetails = () => {
     return <div>Loading...</div>;
   }
   
+  const handleBack = () => {
+    navigate(`/customer-dashboard`);
+  };
+  
   return (
     <div className="split-layout">
       <div className="top-pane">
+        <button className="button" onClick={handleBack}>Back</button>
+        
+        <br />
+        <br />
+        
         <h2>Company Details</h2>
         <h3>{company.name}</h3>
         <p>{company.long_description}</p>
@@ -96,6 +120,10 @@ export const CustomerCompanyDetails = () => {
 };
 
 export const BookingForm = () => {
+  const navigate = useNavigate();
+  
+  const { companyId } = useParams();
+  
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [email, setEmail] = useState('');
@@ -110,6 +138,10 @@ export const BookingForm = () => {
     };
     
     console.log('Form Data:', formData);
+  };
+  
+  const handleBack = () => {
+    navigate(`/customer-dashboard/${companyId}`);
   };
   
   return (
@@ -140,7 +172,8 @@ export const BookingForm = () => {
           required
         />
         <br />
-        <button type="submit">Submit</button>
+        <button className="button" type="submit">Submit</button>
+        <button className="button" onClick={handleBack}>Back</button>
       </form>
     </div>
   );
