@@ -263,7 +263,8 @@ export const AddEmployee = () => {
       setCompetence((prevCompetence) =>
         prevCompetence.filter((id) => id !== serviceId)
       );
-    } else {
+    }
+    else {
       setCompetence((prevCompetence) => [...prevCompetence, serviceId]);
     }
   };

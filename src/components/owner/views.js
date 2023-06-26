@@ -214,9 +214,7 @@ export const OwnerEmployeeDetails = () => {
       }
     })
       .then(response => response.json())
-      .then(data => {
-        setEmployee(data);
-      })
+      .then(data => setEmployee(data))
       .catch(error => {
         console.error('Error:', error);
       });
