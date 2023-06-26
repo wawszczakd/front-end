@@ -346,41 +346,44 @@ export const AddEmployee = () => {
           required
         />
         <br />
+        <br />
         <label>Work Times:</label>
         <br />
-        {Object.keys(workTimes).map((day) => (
-          <div key={day}>
-            <label>{dayMapping[day]}:</label>
-            {workTimes[day].map((time, index) => (
-              <div key={index}>
-                from
-                <input
-                  type="time"
-                  value={time.from}
-                  step="600"
-                  onChange={(e) =>
-                    handleWorkTimeChange(day, index, 'from', e.target.value)
-                  }
-                />
-                to
-                <input
-                  type="time"
-                  value={time.to}
-                  step="600"
-                  onChange={(e) =>
-                    handleWorkTimeChange(day, index, 'to', e.target.value)
-                  }
-                />
-                <button className="button" onClick={(event) => handleRemoveWorkTime(event, day, index)}>Remove</button>
-                <br />
-                <br />
-              </div>
-            ))}
-            <button className="button" onClick={(event) => handleAddWorkTime(event, day)}>Add Work Time</button>
-            <br />
-            <br />
-          </div>
-        ))}
+        <div className="employee-form">
+          {Object.keys(workTimes).map((day) => (
+            <div key={day} className={`employee-form-${day}`}>
+              <label>{dayMapping[day]}:</label>
+              {workTimes[day].map((time, index) => (
+                <div key={index}>
+                  from
+                  <input
+                    type="time"
+                    value={time.from}
+                    step="600"
+                    onChange={(e) =>
+                      handleWorkTimeChange(day, index, 'from', e.target.value)
+                    }
+                  />
+                  to
+                  <input
+                    type="time"
+                    value={time.to}
+                    step="600"
+                    onChange={(e) =>
+                      handleWorkTimeChange(day, index, 'to', e.target.value)
+                    }
+                  />
+                  <button className="form-button" onClick={(event) => handleRemoveWorkTime(event, day, index)}>Remove</button>
+                  <br />
+                  <br />
+                </div>
+              ))}
+              <button className="form-button" onClick={(event) => handleAddWorkTime(event, day)}>Add time</button>
+              <br />
+              <br />
+            </div>
+          ))}
+        </div>
         <br />
         <label>Competence:</label>
         {company.services && company.services.map((service) => (

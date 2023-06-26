@@ -194,6 +194,49 @@ form button[type="submit"]:hover {
   overflow: auto;
 }
 
+.employee-form {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(6, 1fr 10px) 1fr;
+  height: min-content;
+  width: auto;
+}
+
+.employee-form-mo {
+  grid-area: 1 / 1 / 2 / 2;
+  overflow: auto;
+}
+
+.employee-form-tu {
+  grid-area: 1 / 3 / 2 / 4;
+  overflow: auto;
+}
+
+.employee-form-we {
+  grid-area: 1 / 5 / 2 / 6;
+  overflow: auto;
+}
+
+.employee-form-th {
+  grid-area: 1 / 7 / 2 / 8;
+  overflow: auto;
+}
+
+.employee-form-fr {
+  grid-area: 1 / 9 / 2 / 10;
+  overflow: auto;
+}
+
+.employee-form-sa {
+  grid-area: 1 / 11 / 2 / 12;
+  overflow: auto;
+}
+
+.employee-form-su {
+  grid-area: 1 / 13 / 2 / 14;
+  overflow: auto;
+}
+
 .button {
   padding: 10px 20px;
   background-color: #007bff;
@@ -265,5 +308,20 @@ form button[type="submit"]:hover {
 }
 
 .modify-button:hover {
+  background-color: #0069d9;
+}
+
+.form-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-right: 10px;
+  width: 100px;
+}
+
+.form-button:hover {
   background-color: #0069d9;
 }
