@@ -402,16 +402,14 @@ export const ModifyEmployee = () => {
           required
         />
         <br />
-        <br />
         <label>Work Times:</label>
-        <br />
         <div className="employee-form">
           {Object.keys(workTimes).map((day) => (
             <div key={day} className={`employee-form-${day}`}>
               <label>{dayMapping[day]}:</label>
               {workTimes[day].map((time, index) => (
                 <div key={index}>
-                  from
+                  from:
                   <input
                     type="time"
                     value={time.from}
@@ -420,7 +418,7 @@ export const ModifyEmployee = () => {
                       handleWorkTimeChange(day, index, 'from', e.target.value)
                     }
                   />
-                  to
+                  to:
                   <input
                     type="time"
                     value={time.to}
@@ -440,7 +438,6 @@ export const ModifyEmployee = () => {
             </div>
           ))}
         </div>
-        <br />
         <label>Competence:</label>
         {company.services && company.services.map((service) => (
           <div key={service.id}>
