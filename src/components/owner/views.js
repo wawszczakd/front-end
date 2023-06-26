@@ -267,7 +267,7 @@ export const OwnerEmployeeDetails = () => {
       <div className="employee-sa">
         <p>Saturday</p>
         <ul style={{ padding: '0', paddingLeft: '20px' }}>
-          {generateTimeList("fr", employee.work_times)}
+          {generateTimeList("sa", employee.work_times)}
         </ul>
       </div>
       <div className="employee-su">
