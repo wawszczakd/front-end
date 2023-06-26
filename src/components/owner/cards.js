@@ -10,7 +10,7 @@ export const OwnerCompanyCard = ({ company, onRemove }) => {
   const navigate = useNavigate();
   
   const handleSelectCompany = () => {
-    navigate(`/owner-dashboard/${company.id}`);
+    navigate(`/owner-dashboard/company/${company.id}`);
   };
   
   const handleRemoveCompany = (event) => {
@@ -84,7 +84,7 @@ export const OwnerServiceCard = ({ service, onRemove }) => {
   
   const handleModifyService = () => {
     localStorage.setItem('service', JSON.stringify(service));
-    navigate(`/owner-dashboard/${companyId}/modify-service/${service.id}`);
+    navigate(`/owner-dashboard/company/${companyId}/modify-service/${service.id}`);
   };
   
   return (
@@ -130,11 +130,11 @@ export const OwnerEmployeeCard = ({ employee, onRemove }) => {
   };
   
   const handleModifyEmployee = () => {
-    navigate(`/owner-dashboard/${companyId}/modify-employee/${employee.id}`);
+    navigate(`/owner-dashboard/company/${companyId}/modify-employee/${employee.id}`);
   };
   
   const handleSelectEmployee = () => {
-    navigate(`/owner-dashboard/${companyId}/employee/${employee.id}`);
+    navigate(`/owner-dashboard/company/${companyId}/employee/${employee.id}`);
   };
   
   return (

@@ -54,17 +54,17 @@ const App = () => {
           <Route path="/register-customer" element={<RegisterCustomer />} />
           <Route path="/register-owner" element={<RegisterOwner />} />
           <Route path="/customer-dashboard" element={<CustomerDashboard />} />
-          <Route path="/customer-dashboard/:companyId" element={<CustomerCompanyDetails />} />
-          <Route path="/customer-dashboard/:companyId/:serviceId" element={<BookingForm />} />
+          <Route path="/customer-dashboard/company/:companyId" element={<CustomerCompanyDetails />} />
+          <Route path="/customer-dashboard/company/:companyId/service/:serviceId" element={<BookingForm />} />
           <Route path="/owner-dashboard" element={<OwnerDashboard />} />
-          <Route path="/owner-dashboard/:companyId" element={<OwnerCompanyDetails />} />
-          <Route path="/owner-dashboard/:companyId/employee/:employeeId" element={<OwnerEmployeeDetails />} />
+          <Route path="/owner-dashboard/company/:companyId" element={<OwnerCompanyDetails />} />
+          <Route path="/owner-dashboard/company/:companyId/employee/:employeeId" element={<OwnerEmployeeDetails />} />
           <Route path="/owner-dashboard/add-company" element={<AddCompany />} />
-          <Route path="/owner-dashboard/:companyId/add-service" element={<AddService />} />
-          <Route path="/owner-dashboard/:companyId/add-employee" element={<AddEmployee />} />
+          <Route path="/owner-dashboard/company/:companyId/add-service" element={<AddService />} />
+          <Route path="/owner-dashboard/company/:companyId/add-employee" element={<AddEmployee />} />
           <Route path="/owner-dashboard/modify-company/:companyId" element={<ModifyCompany />} />
-          <Route path="/owner-dashboard/:companyId/modify-service/:serviceId" element={<ModifyService />} />
-          <Route path="/owner-dashboard/:companyId/modify-employee/:employeeId" element={<ModifyEmployee />} />
+          <Route path="/owner-dashboard/company/:companyId/modify-service/:serviceId" element={<ModifyService />} />
+          <Route path="/owner-dashboard/company/:companyId/modify-employee/:employeeId" element={<ModifyEmployee />} />
         </Routes>
       </div>
     </Router>

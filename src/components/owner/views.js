@@ -87,11 +87,11 @@ export const OwnerCompanyDetails = () => {
   const [employees, setEmployees] = useState([]);
   
   const handleAddService = () => {
-    navigate(`/owner-dashboard/${companyId}/add-service`);
+    navigate(`/owner-dashboard/company/${companyId}/add-service`);
   };
   
   const handleAddEmployee = () => {
-    navigate(`/owner-dashboard/${companyId}/add-employee`);
+    navigate(`/owner-dashboard/company/${companyId}/add-employee`);
   };
   
   const handleRemoveService = (serviceId) => {
@@ -246,7 +246,7 @@ export const OwnerEmployeeDetails = () => {
   : [];
   
   const handleBack = () => {
-    navigate(`/owner-dashboard/${companyId}`);
+    navigate(`/owner-dashboard/company/${companyId}`);
   };
   
   return (

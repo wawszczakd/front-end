@@ -156,7 +156,7 @@ export const ModifyService = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        navigate(`/owner-dashboard/${companyId}`);
+        navigate(`/owner-dashboard/company/${companyId}`);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -164,7 +164,7 @@ export const ModifyService = () => {
   };
   
   const handleBack = () => {
-    navigate(`/owner-dashboard/${companyId}`);
+    navigate(`/owner-dashboard/company/${companyId}`);
   };
   
   return (

@@ -9,7 +9,7 @@ export const CustomerCompanyCard = ({ company }) => {
   const navigate = useNavigate();
   
   const handleSelectCompany = () => {
-    navigate(`/customer-dashboard/${company.id}`);
+    navigate(`/customer-dashboard/company/${company.id}`);
   };
   
   return (
@@ -34,7 +34,7 @@ export const CustomerServiceCard = ({ service, companyId }) => {
   const navigate = useNavigate();
   
   const handleSelectService = () => {
-    navigate(`/customer-dashboard/${companyId}/${service.id}`);
+    navigate(`/customer-dashboard/company/${companyId}/service/${service.id}`);
   };
   
   return (

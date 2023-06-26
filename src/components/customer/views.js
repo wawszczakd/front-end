@@ -135,7 +135,7 @@ export const BookingForm = () => {
   };
   
   const handleBack = () => {
-    navigate(`/customer-dashboard/${companyId}`);
+    navigate(`/customer-dashboard/company/${companyId}`);
   };
   
   return (

@@ -133,7 +133,7 @@ export const AddService = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        navigate(`/owner-dashboard/${companyId}`);
+        navigate(`/owner-dashboard/company/${companyId}`);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -141,7 +141,7 @@ export const AddService = () => {
   };
   
   const handleBack = () => {
-    navigate(`/owner-dashboard/${companyId}`);
+    navigate(`/owner-dashboard/company/${companyId}`);
   };
   
   return (
@@ -301,7 +301,7 @@ export const AddEmployee = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        navigate(`/owner-dashboard/${companyId}`);
+        navigate(`/owner-dashboard/company/${companyId}`);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -319,7 +319,7 @@ export const AddEmployee = () => {
   };
   
   const handleBack = () => {
-    navigate(`/owner-dashboard/${companyId}`);
+    navigate(`/owner-dashboard/company/${companyId}`);
   };
   
   return (
