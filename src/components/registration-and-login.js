@@ -42,6 +42,8 @@ export const LoginCustomer = () => {
   
   return (
     <div>
+      <button className="back-button" onClick={handleBack}>Back</button>
+      
       <h2>Login Customer</h2>
       
       <form onSubmit={handleSubmit}>
@@ -63,7 +65,6 @@ export const LoginCustomer = () => {
         <br />
         <br />
         <button className="button" type="submit">Login</button>
-        <button className="button" onClick={handleBack}>Back</button>
       </form>
     </div>
   );
@@ -106,6 +107,8 @@ export const LoginOwner = () => {
   
   return (
     <div>
+      <button className="back-button" onClick={handleBack}>Back</button>
+      
       <h2>Login Owner</h2>
       
       <form onSubmit={handleSubmit}>
@@ -127,7 +130,6 @@ export const LoginOwner = () => {
         <br />
         <br />
         <button className="button" type="submit">Login</button>
-        <button className="button" onClick={handleBack}>Back</button>
       </form>
     </div>
   );
@@ -173,6 +175,8 @@ export const RegisterCustomer = () => {
   
   return (
     <div>
+      <button className="back-button" onClick={handleBack}>Back</button>
+      
       <h2>Register Customer</h2>
       
       <form onSubmit={handleSubmit}>
@@ -210,7 +214,6 @@ export const RegisterCustomer = () => {
         <br />
         <br />
         <button className="button" type="submit">Register</button>
-        <button className="button" onClick={handleBack}>Back</button>
       </form>
     </div>
   );
@@ -256,6 +259,8 @@ export const RegisterOwner = () => {
   
   return (
     <div>
+      <button className="back-button" onClick={handleBack}>Back</button>
+      
       <h2>Register Customer</h2>
       
       <form onSubmit={handleSubmit}>
@@ -293,7 +298,6 @@ export const RegisterOwner = () => {
         <br />
         <br />
         <button className="button" type="submit">Register</button>
-        <button className="button" onClick={handleBack}>Back</button>
       </form>
     </div>
   );

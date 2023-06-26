@@ -51,6 +51,8 @@ export const AddCompany = () => {
   
   return (
     <div>
+      <button className="back-button" onClick={handleBack}>Back</button>
+      
       <h2>Add Company</h2>
       
       <form onSubmit={handleSubmit}>
@@ -94,7 +96,6 @@ export const AddCompany = () => {
         />
         <br />
         <button className="button" type="submit">Add Company</button>
-        <button className="button" onClick={handleBack}>Back</button>
       </form>
     </div>
   );
@@ -145,6 +146,8 @@ export const AddService = () => {
   
   return (
     <div>
+      <button className="back-button" onClick={handleBack}>Back</button>
+      
       <h2>Add Service</h2>
       
       <form onSubmit={handleSubmit}>
@@ -184,7 +187,6 @@ export const AddService = () => {
         />
         <br />
         <button className="button" type="submit">Add Service</button>
-        <button className="button" onClick={handleBack}>Back</button>
       </form>
     </div>
   );
@@ -322,6 +324,8 @@ export const AddEmployee = () => {
   
   return (
     <div>
+      <button className="back-button" onClick={handleBack}>Back</button>
+      
       <h2>Add Employee</h2>
       
       <form onSubmit={handleSubmit}>
@@ -392,7 +396,6 @@ export const AddEmployee = () => {
         ))}
         <br />
         <button className="button" type="submit">Add Employee</button>
-        <button className="button" onClick={handleBack}>Back</button>
       </form>
     </div>
   );

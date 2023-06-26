@@ -46,10 +46,11 @@ export const OwnerDashboard = () => {
   return (
     <div className="companies-list-layout">
       <div className="companies-list-top">
+        <button className="back-button" onClick={handleBack}>Back</button>
+        
         <h2>Owner Dashboard</h2>
         
         <button className="button" onClick={handleAddCompany}>Add Company</button>
-        <button className="button" onClick={handleBack}>Back</button>
         
         <br />
         <br />
@@ -127,13 +128,14 @@ export const OwnerCompanyDetails = () => {
   return (
     <div className="split-layout">
       <div className="top-pane">
+        <button className="back-button" onClick={handleBack}>Back</button>
+        
         <h2>Company Details</h2>
         <h3>{company.name}</h3>
         <p>{company.long_description}</p>
         
         <button className="button" onClick={handleAddService}>Add Service</button>
         <button className="button" onClick={handleAddEmployee}>Add Employee</button>
-        <button className="button" onClick={handleBack}>Back</button>
         
         <br />
         <br />
@@ -250,10 +252,7 @@ export const OwnerEmployeeDetails = () => {
   return (
     <div className="employee-layout">
       <div className="employee-top">
-        <button className="button" onClick={handleBack}>Back</button>
-        
-        <br />
-        <br />
+        <button className="back-button" onClick={handleBack}>Back</button>
         
         <h2>Employee Details</h2>
         <h3>{employee.name} {employee.surname}</h3>

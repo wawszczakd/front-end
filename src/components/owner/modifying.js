@@ -72,6 +72,8 @@ export const ModifyCompany = () => {
   
   return (
     <div>
+      <button className="back-button" onClick={handleBack}>Back</button>
+      
       <h2>Modify Company</h2>
       
       <form onSubmit={handleSubmit}>
@@ -115,7 +117,6 @@ export const ModifyCompany = () => {
         />
         <br />
         <button className="button" type="submit">Modify Company</button>
-        <button className="button" onClick={handleBack}>Back</button>
       </form>
     </div>
   );
@@ -168,6 +169,8 @@ export const ModifyService = () => {
   
   return (
     <div>
+      <button className="back-button" onClick={handleBack}>Back</button>
+      
       <h2>Modify Service</h2>
       
       <form onSubmit={handleSubmit}>
@@ -207,7 +210,6 @@ export const ModifyService = () => {
         />
         <br />
         <button className="button" type="submit">Modify Service</button>
-        <button className="button" onClick={handleBack}>Back</button>
       </form>
     </div>
   );

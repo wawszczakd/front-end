@@ -27,10 +27,7 @@ export const CustomerDashboard = () => {
   return (
     <div className="companies-list-layout">
       <div className="companies-list-top">
-        <button className="button" onClick={handleBack}>Back</button>
-        
-        <br />
-        <br />
+        <button className="back-button" onClick={handleBack}>Back</button>
         
         <h2>List of Companies</h2>
         
@@ -72,10 +69,7 @@ export const CustomerCompanyDetails = () => {
   return (
     <div className="split-layout">
       <div className="top-pane">
-        <button className="button" onClick={handleBack}>Back</button>
-        
-        <br />
-        <br />
+        <button className="back-button" onClick={handleBack}>Back</button>
         
         <h2>Company Details</h2>
         <h3>{company.name}</h3>
@@ -146,7 +140,10 @@ export const BookingForm = () => {
   
   return (
     <div>
+      <button className="back-button" onClick={handleBack}>Back</button>
+      
       <h2>Booking Form</h2>
+      
       <form onSubmit={handleSubmit}>
         <label>Date:</label>
         <input
@@ -173,7 +170,6 @@ export const BookingForm = () => {
         />
         <br />
         <button className="button" type="submit">Submit</button>
-        <button className="button" onClick={handleBack}>Back</button>
       </form>
     </div>
   );

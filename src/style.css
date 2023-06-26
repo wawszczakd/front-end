@@ -209,6 +209,24 @@ form button[type="submit"]:hover {
   background-color: #0069d9;
 }
 
+.back-button {
+  position: fixed;
+  top: 20px;
+  right: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-right: 10px;
+  width: 160px;
+}
+
+.back-button:hover {
+  background-color: #0069d9;
+}
+
 .button-group {
   position: absolute;
   top: 0px;
