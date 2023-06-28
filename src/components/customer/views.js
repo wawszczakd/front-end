@@ -113,7 +113,7 @@ export const CustomerCompanyDetails = () => {
   );
 };
 
-export const CustomerGetDates = () => {
+export const CustomerGetTimes = () => {
   const navigate = useNavigate();
   
   const service = JSON.parse(localStorage.getItem('service'));
@@ -136,7 +136,7 @@ export const CustomerGetDates = () => {
     })
       .then(response => response.json())
       .then(data => {
-        localStorage.setItem('available-dates', JSON.stringify(data));
+        localStorage.setItem('available-times', JSON.stringify(data));
         navigate(`/customer-dashboard/company/${companyId}/service/${service.id}/available-times`);
       })
       .catch(error => {
@@ -172,8 +172,11 @@ export const CustomerGetDates = () => {
   );
 };
 
-export const CustomerAvailableDates = () => {
+export const CustomerAvailableTimes = () => {
   return (
-    <p>{localStorage.getItem('available-dates')}</p>
+    <div>
+      <h2>Available Times</h2>
+      <p>{localStorage.getItem('available-times')}</p>
+    </div>
   );
 }
