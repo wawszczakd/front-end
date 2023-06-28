@@ -41,31 +41,34 @@ export const LoginCustomer = () => {
   };
   
   return (
-    <div>
+    <div className="form">
+      <div className="form-top">
       <button className="back-button" onClick={handleBack}>Back</button>
       
       <h2>Login Customer</h2>
-      
-      <form onSubmit={handleSubmit}>
-        <label>Email:</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <br />
-        <label>Password:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <br />
-        <br />
-        <button className="button" type="submit">Login</button>
-      </form>
+      </div>
+      <div className="form-bottom">
+        <form onSubmit={handleSubmit}>
+          <label>Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <br />
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <br />
+          <br />
+          <button className="button" type="submit">Login</button>
+        </form>
+      </div>
     </div>
   );
 };
@@ -106,31 +109,34 @@ export const LoginOwner = () => {
   };
   
   return (
-    <div>
-      <button className="back-button" onClick={handleBack}>Back</button>
-      
-      <h2>Login Owner</h2>
-      
-      <form onSubmit={handleSubmit}>
-        <label>Email:</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <br />
-        <label>Password:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <br />
-        <br />
-        <button className="button" type="submit">Login</button>
-      </form>
+    <div className="form">
+      <div className="form-top">
+        <button className="back-button" onClick={handleBack}>Back</button>
+        
+        <h2>Login Owner</h2>
+      </div>
+      <div className="form-bottom">
+        <form onSubmit={handleSubmit}>
+          <label>Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <br />
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <br />
+          <br />
+          <button className="button" type="submit">Login</button>
+        </form>
+      </div>
     </div>
   );
 };
@@ -174,47 +180,50 @@ export const RegisterCustomer = () => {
   };
   
   return (
-    <div>
-      <button className="back-button" onClick={handleBack}>Back</button>
-      
-      <h2>Register Customer</h2>
-      
-      <form onSubmit={handleSubmit}>
-        <label>Name:</label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <br />
-        <label>Surname:</label>
-        <input
-          type="text"
-          value={surname}
-          onChange={(e) => setSurname(e.target.value)}
-          required
-        />
-        <br />
-        <label>Email:</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <br />
-        <label>Password:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <br />
-        <br />
-        <button className="button" type="submit">Register</button>
-      </form>
+    <div className="form">
+      <div className="form-top">
+        <button className="back-button" onClick={handleBack}>Back</button>
+        
+        <h2>Register Customer</h2>
+      </div>
+      <div className="form-bottom">
+        <form onSubmit={handleSubmit}>
+          <label>Name:</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <br />
+          <label>Surname:</label>
+          <input
+            type="text"
+            value={surname}
+            onChange={(e) => setSurname(e.target.value)}
+            required
+          />
+          <br />
+          <label>Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <br />
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <br />
+          <br />
+          <button className="button" type="submit">Register</button>
+        </form>
+      </div>
     </div>
   );
 };
@@ -258,47 +267,50 @@ export const RegisterOwner = () => {
   };
   
   return (
-    <div>
-      <button className="back-button" onClick={handleBack}>Back</button>
-      
-      <h2>Register Customer</h2>
-      
-      <form onSubmit={handleSubmit}>
-        <label>Name:</label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <br />
-        <label>Surname:</label>
-        <input
-          type="text"
-          value={surname}
-          onChange={(e) => setSurname(e.target.value)}
-          required
-        />
-        <br />
-        <label>Email:</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <br />
-        <label>Password:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <br />
-        <br />
-        <button className="button" type="submit">Register</button>
-      </form>
+    <div className="form">
+      <div className="form-top">
+        <button className="back-button" onClick={handleBack}>Back</button>
+        
+        <h2>Register Customer</h2>
+      </div>
+      <div className="form-bottom">
+        <form onSubmit={handleSubmit}>
+          <label>Name:</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <br />
+          <label>Surname:</label>
+          <input
+            type="text"
+            value={surname}
+            onChange={(e) => setSurname(e.target.value)}
+            required
+          />
+          <br />
+          <label>Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <br />
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <br />
+          <br />
+          <button className="button" type="submit">Register</button>
+        </form>
+      </div>
     </div>
   );
 };

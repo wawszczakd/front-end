@@ -72,53 +72,56 @@ export const ModifyCompany = () => {
   };
   
   return (
-    <div>
-      <button className="back-button" onClick={handleBack}>Back</button>
-      
-      <h2>Modify Company</h2>
-      
-      <form onSubmit={handleSubmit}>
-        <label>Name:</label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <br />
-        <label>Type:</label>
-        <input
-          type="text"
-          value={type}
-          onChange={(e) => setType(e.target.value)}
-          required
-        />
-        <br />
-        <label>Localisation:</label>
-        <input
-          type="text"
-          value={localisation}
-          onChange={(e) => setLocalisation(e.target.value)}
-          required
-        />
-        <br />
-        <label>Short Description:</label>
-        <input
-          type="text"
-          value={shortDescription}
-          onChange={(e) => setShortDescription(e.target.value)}
-          required
-        />
-        <br />
-        <label>Long Description:</label>
-        <textarea
-          value={longDescription}
-          onChange={(e) => setLongDescription(e.target.value)}
-          required
-        />
-        <br />
-        <button className="button" type="submit">Modify Company</button>
-      </form>
+    <div className="form">
+      <div className="form-top">
+        <button className="back-button" onClick={handleBack}>Back</button>
+        
+        <h2>Modify Company</h2>
+      </div>
+      <div className="form-bottom">
+        <form onSubmit={handleSubmit}>
+          <label>Name:</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <br />
+          <label>Type:</label>
+          <input
+            type="text"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            required
+          />
+          <br />
+          <label>Localisation:</label>
+          <input
+            type="text"
+            value={localisation}
+            onChange={(e) => setLocalisation(e.target.value)}
+            required
+          />
+          <br />
+          <label>Short Description:</label>
+          <input
+            type="text"
+            value={shortDescription}
+            onChange={(e) => setShortDescription(e.target.value)}
+            required
+          />
+          <br />
+          <label>Long Description:</label>
+          <textarea
+            value={longDescription}
+            onChange={(e) => setLongDescription(e.target.value)}
+            required
+          />
+          <br />
+          <button className="button" type="submit">Modify Company</button>
+        </form>
+      </div>
     </div>
   );
 };
@@ -169,49 +172,52 @@ export const ModifyService = () => {
   };
   
   return (
-    <div>
-      <button className="back-button" onClick={handleBack}>Back</button>
-      
-      <h2>Modify Service</h2>
-      
-      <form onSubmit={handleSubmit}>
-        <label>Name:</label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <br />
-        <label>Price (gr):</label>
-        <input
-          type="number"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          min={1}
-          max={1000000}
-          required
-        />
-        <br />
-        <label>Duration (m):</label>
-        <input
-          type="number"
-          value={duration}
-          onChange={(e) => setDuration(e.target.value)}
-          min={10}
-          max={480}
-          required
-        />
-        <br />
-        <label>Description:</label>
-        <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        />
-        <br />
-        <button className="button" type="submit">Modify Service</button>
-      </form>
+    <div className="form">
+      <div className="form-top">
+        <button className="back-button" onClick={handleBack}>Back</button>
+        
+        <h2>Modify Service</h2>
+      </div>
+      <div className="form-bottom">
+        <form onSubmit={handleSubmit}>
+          <label>Name:</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <br />
+          <label>Price (gr):</label>
+          <input
+            type="number"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            min={1}
+            max={1000000}
+            required
+          />
+          <br />
+          <label>Duration (m):</label>
+          <input
+            type="number"
+            value={duration}
+            onChange={(e) => setDuration(e.target.value)}
+            min={10}
+            max={480}
+            required
+          />
+          <br />
+          <label>Description:</label>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+          <br />
+          <button className="button" type="submit">Modify Service</button>
+        </form>
+      </div>
     </div>
   );
 };
@@ -380,80 +386,83 @@ export const ModifyEmployee = () => {
   };
   
   return (
-    <div>
-      <button className="back-button" onClick={handleBack}>Back</button>
-      
-      <h2>Modify Employee</h2>
-      
-      <form onSubmit={handleSubmit}>
-        <label>Name:</label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <br />
-        <label>Surname:</label>
-        <input
-          type="text"
-          value={surname}
-          onChange={(e) => setSurname(e.target.value)}
-          required
-        />
-        <br />
-        <label>Work Times:</label>
-        <div className="employee-form">
-          {Object.keys(workTimes).map((day) => (
-            <div key={day} className={`employee-form-${day}`}>
-              <label>{dayMapping[day]}:</label>
-              {workTimes[day].map((time, index) => (
-                <div key={index}>
-                  from:
-                  <input
-                    type="time"
-                    value={time.from}
-                    step="600"
-                    onChange={(e) =>
-                      handleWorkTimeChange(day, index, 'from', e.target.value)
-                    }
-                  />
-                  to:
-                  <input
-                    type="time"
-                    value={time.to}
-                    step="600"
-                    onChange={(e) =>
-                      handleWorkTimeChange(day, index, 'to', e.target.value)
-                    }
-                  />
-                  <button className="form-button" onClick={(event) => handleRemoveWorkTime(event, day, index)}>Remove</button>
-                  <br />
-                  <br />
-                </div>
-              ))}
-              <button className="form-button" onClick={(event) => handleAddWorkTime(event, day)}>Add time</button>
-              <br />
-              <br />
+    <div className="form">
+      <div className="form-top">
+        <button className="back-button" onClick={handleBack}>Back</button>
+        
+        <h2>Modify Employee</h2>
+      </div>
+      <div className="form-bottom">
+        <form onSubmit={handleSubmit}>
+          <label>Name:</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <br />
+          <label>Surname:</label>
+          <input
+            type="text"
+            value={surname}
+            onChange={(e) => setSurname(e.target.value)}
+            required
+          />
+          <br />
+          <label>Work Times:</label>
+          <div className="employee-form">
+            {Object.keys(workTimes).map((day) => (
+              <div key={day} className={`employee-form-${day}`}>
+                <label>{dayMapping[day]}:</label>
+                {workTimes[day].map((time, index) => (
+                  <div key={index}>
+                    from:
+                    <input
+                      type="time"
+                      value={time.from}
+                      step="600"
+                      onChange={(e) =>
+                        handleWorkTimeChange(day, index, 'from', e.target.value)
+                      }
+                    />
+                    to:
+                    <input
+                      type="time"
+                      value={time.to}
+                      step="600"
+                      onChange={(e) =>
+                        handleWorkTimeChange(day, index, 'to', e.target.value)
+                      }
+                    />
+                    <button className="form-button" onClick={(event) => handleRemoveWorkTime(event, day, index)}>Remove</button>
+                    <br />
+                    <br />
+                  </div>
+                ))}
+                <button className="form-button" onClick={(event) => handleAddWorkTime(event, day)}>Add time</button>
+                <br />
+                <br />
+              </div>
+            ))}
+          </div>
+          <label>Competence:</label>
+          {company.services && company.services.map((service) => (
+            <div key={service.id}>
+              <input
+                type="checkbox"
+                id={service.id}
+                value={service.id}
+                checked={competence.includes(service.id)}
+                onChange={() => handleServiceChange(service.id)}
+              />
+              <label htmlFor={service.id}>{service.name}</label>
             </div>
           ))}
-        </div>
-        <label>Competence:</label>
-        {company.services && company.services.map((service) => (
-          <div key={service.id}>
-            <input
-              type="checkbox"
-              id={service.id}
-              value={service.id}
-              checked={competence.includes(service.id)}
-              onChange={() => handleServiceChange(service.id)}
-            />
-            <label htmlFor={service.id}>{service.name}</label>
-          </div>
-        ))}
-        <br />
-        <button className="button" type="submit">Modify Employee</button>
-      </form>
+          <br />
+          <button className="button" type="submit">Modify Employee</button>
+        </form>
+      </div>
     </div>
   );
 };

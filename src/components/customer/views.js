@@ -139,38 +139,41 @@ export const BookingForm = () => {
   };
   
   return (
-    <div>
-      <button className="back-button" onClick={handleBack}>Back</button>
-      
-      <h2>Booking Form</h2>
-      
-      <form onSubmit={handleSubmit}>
-        <label>Date:</label>
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          required
-        />
-        <br />
-        <label>Time:</label>
-        <input
-          type="time"
-          value={time}
-          onChange={(e) => setTime(e.target.value)}
-          required
-        />
-        <br />
-        <label>Email:</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <br />
-        <button className="button" type="submit">Submit</button>
-      </form>
+    <div className="form">
+      <div className="form-top">
+        <button className="back-button" onClick={handleBack}>Back</button>
+        
+        <h2>Booking Form</h2>
+      </div>
+      <div className="form-bottom">
+        <form onSubmit={handleSubmit}>
+          <label>Date:</label>
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            required
+          />
+          <br />
+          <label>Time:</label>
+          <input
+            type="time"
+            value={time}
+            onChange={(e) => setTime(e.target.value)}
+            required
+          />
+          <br />
+          <label>Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <br />
+          <button className="button" type="submit">Submit</button>
+        </form>
+      </div>
     </div>
   );
 };
