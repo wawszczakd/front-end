@@ -157,3 +157,15 @@ export const OwnerEmployeeCard = ({ employee, onRemove }) => {
     </div>
   );
 };
+
+export const OwnerAppointmentCard = ({ appointment }) => {
+  return (
+    <div className="not-clickable-card">
+      <p>id: {appointment.id}</p>
+      <p>company_id: {appointment.company_id}</p>
+      <p>service_id: {appointment.service_id}</p>
+      <p>employee_id: {appointment.employee_id}</p>
+      <p>order_time: {appointment.order_time}</p>
+    </div>
+  );
+};

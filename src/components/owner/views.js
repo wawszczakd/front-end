@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import { OwnerCompanyCard, OwnerServiceCard, OwnerEmployeeCard } from './cards';
+import { OwnerCompanyCard, OwnerServiceCard, OwnerEmployeeCard, OwnerAppointmentCard } from './cards';
 import { reverseFormatTime } from '../functions';
 import { API_URL } from '../../App.js';
 
@@ -104,6 +104,10 @@ export const OwnerCompanyDetails = () => {
     setEmployees(updatedEmployees);
   };
   
+  const handleAppointments = () => {
+    navigate(`/owner-dashboard/company/${companyId}/appointments`);
+  }
+  
   useEffect(() => {
     fetch(`${API_URL}/companies/${companyId}`)
       .then(response => response.json())
@@ -136,6 +140,7 @@ export const OwnerCompanyDetails = () => {
         
         <button className="button" onClick={handleAddService}>Add Service</button>
         <button className="button" onClick={handleAddEmployee}>Add Employee</button>
+        <button className="button" onClick={handleAppointments}>Appointments List</button>
         
         <br />
         <br />
@@ -315,3 +320,58 @@ export const OwnerEmployeeDetails = () => {
     </div>
   );
 };
+
+export const OwnerAppointments = () => {
+  const navigate = useNavigate();
+  
+  const { companyId } = useParams();
+  const [appointments, setAppointments] = useState([]);
+  
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    
+    fetch(`${API_URL}/companies/${companyId}/orders`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        setAppointments(data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      })
+  }, [])
+  
+  const handleBack = () => {
+    navigate(`/owner-dashboard/company/${companyId}`);
+  };
+  
+  const appointmentsFiltered = (appointments ? appointments.filter(appointment => !appointment.is_canceled) : []);
+  
+  return (
+    <div className="companies-list-layout">
+      <div className="companies-list-top">
+        <button className="back-button" onClick={handleBack}>Back</button>
+        
+        <h2>List of Appointments</h2>
+      </div>
+      
+      {appointmentsFiltered.length > 0 ? (
+        <div className="companies-list-bottom">
+          {appointmentsFiltered.map((appointment) => (
+            <OwnerAppointmentCard
+              key={appointment.id}
+              appointment={appointment}
+            />
+          ))}
+        </div>
+      ) : (
+        <p>There aren't any appointments</p>
+      )}
+    </div>
+  );
+}
