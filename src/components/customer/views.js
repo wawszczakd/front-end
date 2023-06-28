@@ -134,7 +134,7 @@ export const CustomerGetTimes = () => {
     
     const token = localStorage.getItem('token');
     
-    fetch(`${API_URL}/avaliable-dates/companies/${companyId}/services/${serviceId}?service_duration=${service.duration}&date=${date}`, {
+    fetch(`${API_URL}/available-dates/companies/${companyId}/services/${serviceId}?service_duration=${service.duration}&date=${date}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
