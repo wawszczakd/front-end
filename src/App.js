@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 
 import { LoginCustomer, LoginOwner, RegisterCustomer, RegisterOwner } from './components/registration-and-login.js'
-import { CustomerDashboard, CustomerCompanyDetails, CustomerGetTimes, CustomerAvailableTimes } from './components/customer/views.js';
+import { CustomerDashboard, CustomerCompanyDetails, CustomerGetTimes, CustomerAvailableTimes, CustomerAppointments } from './components/customer/views.js';
 import { OwnerDashboard, OwnerCompanyDetails, OwnerEmployeeDetails } from './components/owner/views.js';
 import { AddCompany, AddService, AddEmployee } from './components/owner/adding.js';
 import { ModifyCompany, ModifyService, ModifyEmployee } from './components/owner/modifying.js';
@@ -57,6 +57,7 @@ const App = () => {
           <Route path="/customer-dashboard/company/:companyId" element={<CustomerCompanyDetails />} />
           <Route path="/customer-dashboard/company/:companyId/service/:serviceId" element={<CustomerGetTimes />} />
           <Route path="/customer-dashboard/company/:companyId/service/:serviceId/available-times" element={<CustomerAvailableTimes />} />
+          <Route path="/customer-dashboard/appointments" element={<CustomerAppointments />} />
           <Route path="/owner-dashboard" element={<OwnerDashboard />} />
           <Route path="/owner-dashboard/company/:companyId" element={<OwnerCompanyDetails />} />
           <Route path="/owner-dashboard/company/:companyId/employee/:employeeId" element={<OwnerEmployeeDetails />} />

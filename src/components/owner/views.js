@@ -56,7 +56,7 @@ export const OwnerDashboard = () => {
         <br />
         <br />
         
-        <h2>Your companies</h2>
+        <h2>Your Companies</h2>
       </div>
       
       {companies.length > 0 ? (

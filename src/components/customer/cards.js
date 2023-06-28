@@ -47,3 +47,25 @@ export const CustomerServiceCard = ({ service, companyId }) => {
     </div>
   );
 };
+
+export const CustomerAppointmentCard = ({ appointment }) => {
+  const handleCancelAppointment = () => {
+    console.log("cancel");
+  }
+  
+  return (
+    <div className="not-clickable-card">
+      <p>id: {appointment.id}</p>
+      <p>company_id: {appointment.company_id}</p>
+      <p>service_id: {appointment.service_id}</p>
+      <p>employee_id: {appointment.employee_id}</p>
+      <p>order_time: {appointment.order_time}</p>
+      
+      <div className="button-group">
+        <button className="remove-button" onClick={handleCancelAppointment}>
+          Cancel
+        </button>
+      </div>
+    </div>
+  );
+};

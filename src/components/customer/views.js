@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import { CustomerCompanyCard, CustomerServiceCard, CustomerEmployeeCard } from './cards.js';
+import { CustomerCompanyCard, CustomerServiceCard, CustomerEmployeeCard, CustomerAppointmentCard } from './cards.js';
 import { API_URL } from '../../App.js';
 
 import '../../style.css';
@@ -20,6 +20,10 @@ export const CustomerDashboard = () => {
       });
   }, []);
   
+  const handleAppointments = () => {
+    navigate(`/customer-dashboard/appointments`);
+  }
+  
   const handleBack = () => {
     navigate(`/start`);
   };
@@ -31,6 +35,9 @@ export const CustomerDashboard = () => {
         
         <h2>List of Companies</h2>
         
+        <button className="button" onClick={handleAppointments}>Appointments List</button>
+        
+        <br />
         <br />
       </div>
       
@@ -204,7 +211,7 @@ export const CustomerAvailableTimes = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        navigate(`/customer-dashboard`);
+        navigate(`/customer-dashboard/appointments`);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -218,6 +225,7 @@ export const CustomerAvailableTimes = () => {
         
         <h2>Available Times</h2>
       </div>
+      
       <div className="form-bottom">
         {availableEmployees.length > 0 ? (
           availableEmployees.map(employee => (
@@ -242,6 +250,57 @@ export const CustomerAvailableTimes = () => {
           <p>No available times</p>
         )}
       </div>
+    </div>
+  );
+}
+
+export const CustomerAppointments = () => {
+  const navigate = useNavigate();
+  
+  const [appointments, setAppointments] = useState([]);
+  
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    
+    fetch(`${API_URL}/customers/orders`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        setAppointments(data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      })
+  }, [])
+  
+  const appointmentsFiltered = (appointments ? appointments.filter(appointment => !appointment.is_canceled) : []);
+  
+  const handleBack = () => {
+    navigate(`/customer-dashboard`);
+  };
+  
+  return (
+    <div className="companies-list-layout">
+      <div className="companies-list-top">
+        <button className="back-button" onClick={handleBack}>Back</button>
+        
+        <h2>Your Appointments</h2>
+      </div>
+      
+      {appointmentsFiltered.length > 0 ? (
+        <div className="companies-list-bottom">
+          {appointmentsFiltered.map((appointment) => (
+            <CustomerAppointmentCard key={appointment.id} appointment={appointment} />
+          ))}
+        </div>
+      ) : (
+        <p>You don't have any appointments</p>
+      )}
     </div>
   );
 }
