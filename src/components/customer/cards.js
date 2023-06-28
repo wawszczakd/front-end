@@ -34,6 +34,7 @@ export const CustomerServiceCard = ({ service, companyId }) => {
   const navigate = useNavigate();
   
   const handleSelectService = () => {
+    localStorage.setItem('service', JSON.stringify(service));
     navigate(`/customer-dashboard/company/${companyId}/service/${service.id}`);
   };
   

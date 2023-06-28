@@ -65,7 +65,7 @@ export const OwnerServiceCard = ({ service, onRemove }) => {
   
   const handleRemoveService = () => {
     const token = localStorage.getItem('token');
-  
+    
     fetch(`${API_URL}/companies/${companyId}/services/${service.id}`, {
       method: 'DELETE',
       headers: {

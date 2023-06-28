@@ -113,25 +113,35 @@ export const CustomerCompanyDetails = () => {
   );
 };
 
-export const BookingForm = () => {
+export const CustomerGetDates = () => {
   const navigate = useNavigate();
   
-  const { companyId } = useParams();
+  const service = JSON.parse(localStorage.getItem('service'));
+  
+  const { companyId, serviceId } = useParams();
   
   const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
-  const [email, setEmail] = useState('');
   
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    const formData = {
-      date: date,
-      time: time,
-      mail: email,
-    };
+    const token = localStorage.getItem('token');
     
-    console.log('Form Data:', formData);
+    fetch(`${API_URL}/avaliable-dates/companies/${companyId}/services/${serviceId}?service_duration=${service.duration}&date=${date}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        localStorage.setItem('available-dates', JSON.stringify(data));
+        navigate(`/customer-dashboard/company/${companyId}/service/${service.id}/available-times`);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      })
   };
   
   const handleBack = () => {
@@ -143,7 +153,7 @@ export const BookingForm = () => {
       <div className="form-top">
         <button className="back-button" onClick={handleBack}>Back</button>
         
-        <h2>Booking Form</h2>
+        <h2>Appointment</h2>
       </div>
       <div className="form-bottom">
         <form onSubmit={handleSubmit}>
@@ -155,25 +165,15 @@ export const BookingForm = () => {
             required
           />
           <br />
-          <label>Time:</label>
-          <input
-            type="time"
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
-            required
-          />
-          <br />
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <br />
-          <button className="button" type="submit">Submit</button>
+          <button className="button" type="submit">Find available times</button>
         </form>
       </div>
     </div>
   );
 };
+
+export const CustomerAvailableDates = () => {
+  return (
+    <p>{localStorage.getItem('available-dates')}</p>
+  );
+}
