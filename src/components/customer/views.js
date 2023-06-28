@@ -280,6 +280,12 @@ export const CustomerAppointments = () => {
   
   const appointmentsFiltered = (appointments ? appointments.filter(appointment => !appointment.is_canceled) : []);
   
+  const cancelAppointment = (appointmentId) => {
+    setAppointments((prevAppointments) =>
+      prevAppointments.filter((appointment) => appointment.id !== appointmentId)
+    );
+  };
+  
   const handleBack = () => {
     navigate(`/customer-dashboard`);
   };
@@ -295,7 +301,11 @@ export const CustomerAppointments = () => {
       {appointmentsFiltered.length > 0 ? (
         <div className="companies-list-bottom">
           {appointmentsFiltered.map((appointment) => (
-            <CustomerAppointmentCard key={appointment.id} appointment={appointment} />
+            <CustomerAppointmentCard
+              key={appointment.id}
+              appointment={appointment}
+              onCancel={() => cancelAppointment(appointment.id)}
+            />
           ))}
         </div>
       ) : (

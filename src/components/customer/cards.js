@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { formatPrice, formatDuration } from  '../functions.js';
+import { API_URL } from '../../App.js';
 
 import '../../style.css';
 
@@ -48,9 +49,31 @@ export const CustomerServiceCard = ({ service, companyId }) => {
   );
 };
 
-export const CustomerAppointmentCard = ({ appointment }) => {
-  const handleCancelAppointment = () => {
-    console.log("cancel");
+export const CustomerAppointmentCard = ({ appointment, onCancel }) => {
+  const handleCancelAppointment = (event) => {
+    event.stopPropagation();
+    
+    const token = localStorage.getItem('token');
+    
+    const data = {
+      order_id: appointment.id
+    };
+    
+    fetch(`${API_URL}/orders/cancel`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        onCancel();
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   }
   
   return (
