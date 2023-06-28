@@ -173,10 +173,75 @@ export const CustomerGetTimes = () => {
 };
 
 export const CustomerAvailableTimes = () => {
+  const navigate = useNavigate();
+  const { companyId, serviceId } = useParams();
+  
+  const availableTimes = JSON.parse(localStorage.getItem('available-times'));
+  const availableEmployees = availableTimes.filter(employee => employee.time_slots);
+  
+  const handleBack = () => {
+    navigate(`/customer-dashboard/company/${companyId}/service/${serviceId}`);
+  };
+  
+  const handleTimeSlotClick = (employeeId, startTime, endTime) => {
+    const data = {
+      company_id: companyId,
+      service_id: serviceId,
+      employee_id: employeeId,
+      start_time: startTime,
+      end_time: endTime
+    };
+    
+    const token = localStorage.getItem('token');
+    
+    fetch(`${API_URL}/orders`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        navigate(`/customer-dashboard`);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+  
   return (
-    <div>
-      <h2>Available Times</h2>
-      <p>{localStorage.getItem('available-times')}</p>
+    <div className="form">
+      <div className="form-top">
+        <button className="back-button" onClick={handleBack}>Back</button>
+        
+        <h2>Available Times</h2>
+      </div>
+      <div className="form-bottom">
+        {availableEmployees.length > 0 ? (
+          availableEmployees.map(employee => (
+            <div key={employee.id}>
+              <h3>{`${employee.name} ${employee.surname}`}</h3>
+              <ul>
+                {employee.time_slots.map((timeSlot, index) => {
+                  const startTime = new Date(timeSlot.start_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+                  const endTime = new Date(timeSlot.end_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+                  return (
+                    <li key={index}>
+                      <a href="#" onClick={() => handleTimeSlotClick(employee.id, timeSlot.start_time, timeSlot.end_time)}>
+                        {`${startTime} - ${endTime}`}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))
+        ) : (
+          <p>No available times</p>
+        )}
+      </div>
     </div>
   );
 }
